@@ -71,8 +71,12 @@ const ExerciseOW = styled.div`
   .cluesRow {
     text-align: center;
     display: inline-block;
-    margin-left: 0em;
-    margin-top: -25px;
+    margin-top: -10px;
+    margin-bottom: -5px;
+    border-style: solid;
+    border-width: 2px 0px 0px 0px;
+    border-radius: 10px;
+    border-color: #e5e5e5;
     
     h4 {
       margin-top: 0px;
