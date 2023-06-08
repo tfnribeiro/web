@@ -27,7 +27,7 @@ export default function OrderWords({
   const exerciseLang = bookmarksToStudy[0].from_lang;
   const NO_WORD_SELECTED_ID = -100;
   const MAX_CONTEXT_LENGTH = 15;
-  const ENABLE_SHORTER_CONTEXT_BUTTON = false;
+  const ENABLE_SHORTER_CONTEXT_BUTTON = true;
 
   const [initialTime, setInitialTime] = useState(new Date());
   //const [buttonOptions, setButtonOptions] = useState(null);
@@ -230,7 +230,7 @@ export default function OrderWords({
     let originalContext = bookmarksToStudy[0].context;
     let isCheckLongSentence = false;
     let newExerciseStartTime = new Date();
-    if (originalContext.split(" ").length > 15) {
+    if (originalContext.split(" ").length > MAX_CONTEXT_LENGTH) {
       isCheckLongSentence = true;
     }
     let exercise_start_data = {
@@ -661,7 +661,8 @@ export default function OrderWords({
   function handleReduceContext(){
     let newIsHandleLongSentences = !isHandlingLongSentences;
     let exerciseIntializeVariables = _get_exercise_start_variables()
-    _resetReactStates();
+    setTextBeforeTranslatedText("");
+    setTextAfterTranslatedText("");
     // Handle the case of long sentences, this relies on activating the functionality. 
     prepareContext(
       exerciseIntializeVariables["originalBookmarkContext"],
