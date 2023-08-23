@@ -63,6 +63,7 @@ export default function OrderWords({
 
   function _getWordsInSentence(sentence) {
     let wordsForExercise = removePunctuation(sentence).split(" ")
+    wordsForExercise = wordsForExercise.filter((word) => word !== "-")
     return _removeEmptyTokens(wordsForExercise)
   }
 
@@ -217,6 +218,21 @@ export default function OrderWords({
     return exercise_start_data
   }
 
+  function _prepareStringForRegex(s){
+    // If there are characters that are escaped in regex, then
+    // escape them manually in the string.
+    let newString = ""
+    let escapedChar = /[.+*?^$()[\]{}|\\.]/g;
+    for (let i = 0; i < s.length; i++){
+      console.log(s[i].match(escapedChar))
+      if (s[i].match(escapedChar)){
+        newString += "\\"
+      }
+      newString += s[i]
+    }
+    return newString
+  }
+
   // Exercise Functions / Setup / Handle Interactions
   
   useEffect(() => {
@@ -280,15 +296,14 @@ export default function OrderWords({
         // Line below is used for development with no API key (translatedContext is Null)
         if (!translatedContext) { translatedContext = exerciseContext; }
         if (exerciseContext.length < originalContext.length){
-          let startPos = originalContext.search(exerciseContext);
+          let startPos = originalContext.search(_prepareStringForRegex(exerciseContext));
           let contextLen = originalContext.length;
           setTextBeforeTranslatedText(originalContext.slice(0,startPos));
           setTextAfterTranslatedText(originalContext.slice(startPos+exerciseContext.length,contextLen));
-        }        
+        }   
         setTranslatedText(translatedContext);
         createConfusionWords(exerciseContext, translatedContext, 
           isSentenceTooLong, isHandlingLongSentences, startTime);
-
       })
       .catch(() => {
         let translationError = "Error retrieving the translation.";
@@ -330,8 +345,8 @@ export default function OrderWords({
       setPosSelected(jsonCWords["pos_picked"]);
       setWordSelected(jsonCWords["word_used"]);
       let jsonDataExerciseStart = {
-        "sentence_was_too_long": isSentenceTooLong,
-        "sentence_context_was_reduced": isHandlingLongSentences,
+        "was_context_reduce_used": isSentenceTooLong,
+        "is_context_reduce_active": isHandlingLongSentences,
         "translation": translatedContext,
         "exercise_context": exerciseContext,
         "bookmark_context": bookmarksToStudy[0].context,
@@ -477,8 +492,8 @@ export default function OrderWords({
     );
 
     let jsonDataExerciseEnd = {
-      "sentence_was_too_long": isSentenceTooLong,
-      "sentence_context_was_reduced": isHandlingLongSentences,
+      "was_context_reduce_used": isSentenceTooLong,
+      "is_context_reduce_active": isHandlingLongSentences,
       "outcome": message,
       "total_time": duration,
       "total_errors": totalErrorCounter,
