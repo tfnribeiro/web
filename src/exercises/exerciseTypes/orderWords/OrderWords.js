@@ -28,6 +28,7 @@ export default function OrderWords({
   const NO_WORD_SELECTED_ID = -100;
   const MAX_CONTEXT_LENGTH = 15;
   const ENABLE_SHORTER_CONTEXT_BUTTON = false;
+  const IS_DEBUG = false;
 
   const [initialTime, setInitialTime] = useState(new Date());
   //const [buttonOptions, setButtonOptions] = useState(null);
@@ -53,7 +54,7 @@ export default function OrderWords({
   const [textBeforeTranslatedText, setTextBeforeTranslatedText] = useState("");
   const [textAfterTranslatedText, setTextAfterTranslatedText] = useState("");
   
-  console.log("Running ORDER WORDS EXERCISE")
+  if (IS_DEBUG) console.log("Running ORDER WORDS EXERCISE");
 
   function _removeEmptyTokens(tokenList) {
     // In some instance, there will be punctuation in the middle, which
@@ -110,8 +111,8 @@ export default function OrderWords({
   }
 
   function _orderWordsLogUserActivity(eventType, jsonData){
-    console.log("LOG EVENT, type: " + eventType);
-    console.log(jsonData);
+    if (IS_DEBUG) console.log("LOG EVENT, type: " + eventType);
+    if (IS_DEBUG) console.log(jsonData);
     api.logUserActivity(
       eventType,
       "",
@@ -122,8 +123,8 @@ export default function OrderWords({
 
   function _getCurrentExerciseTime(){
     let pressTime = new Date();
-    console.log(pressTime - initialTime);
-    console.log("^^^^ time elapsed");
+    if (IS_DEBUG) console.log(pressTime - initialTime);
+    if (IS_DEBUG) console.log("^^^^ time elapsed");
     return pressTime - initialTime;
   }
 
@@ -184,7 +185,7 @@ export default function OrderWords({
   }
 
   function _updateClueText(cluesTextList, errorCount) {
-    console.log(cluesTextList);
+    if (IS_DEBUG) console.log(cluesTextList);
     let finalClueText = [];
 
     if (errorCount > 0) { setIsCluesRowVisible(true); }
@@ -224,7 +225,6 @@ export default function OrderWords({
     let newString = ""
     let escapedChar = /[.+*?^$()[\]{}|\\.]/g;
     for (let i = 0; i < s.length; i++){
-      console.log(s[i].match(escapedChar))
       if (s[i].match(escapedChar)){
         newString += "\\"
       }
@@ -258,10 +258,10 @@ export default function OrderWords({
     isHandleLongSentences, 
     isCurrentSentenceTooLong, 
     exerciseStartTime){
-      console.log("Status of isHandle: " + isHandleLongSentences)
-      console.log(isCurrentSentenceTooLong)
+      if (IS_DEBUG) console.log("Status of isHandle: " + isHandleLongSentences);
+      if (IS_DEBUG) console.log(isCurrentSentenceTooLong);
       if (isHandleLongSentences && isCurrentSentenceTooLong) {
-        console.log("Getting smaller context.");
+        if (IS_DEBUG) console.log("Getting smaller context.");
         api.getSmallerContext(originalContext, bookmarkWord,
           exerciseLang, MAX_CONTEXT_LENGTH, (apiCandidateSubSent) => {
             let shorterContext = JSON.parse(apiCandidateSubSent);
@@ -269,16 +269,16 @@ export default function OrderWords({
           });
       }
       else {
-        console.log("Using default context.");
+        if (IS_DEBUG) console.log("Using default context.");
         prepareExercise(originalContext, isCurrentSentenceTooLong, isHandleLongSentences, exerciseStartTime);
       }
   }
 
   function prepareExercise(exerciseContext, isSentenceTooLong, isHandlingLongSentences, startTime) {
-    console.log("CONTEXT: '" + exerciseContext + "'");
+    if (IS_DEBUG) console.log("CONTEXT: '" + exerciseContext + "'");
     exerciseContext = exerciseContext.trim();
-    console.log("CONTEXT AFTER TRIM: '" + exerciseContext + "'");
-    console.log("Getting Translation for ->" + exerciseContext);
+    if (IS_DEBUG) console.log("CONTEXT AFTER TRIM: '" + exerciseContext + "'");
+    if (IS_DEBUG) console.log("Getting Translation for ->" + exerciseContext);
     
     setExerciseContext(exerciseContext);
     
@@ -308,7 +308,7 @@ export default function OrderWords({
       .catch(() => {
         let translationError = "Error retrieving the translation.";
         setTranslatedText(translationError);
-        console.log("could not retreive translation");
+        if (IS_DEBUG) console.log("could not retreive translation");
         setConfuseWords([]);
         setWordsReferenceStatus([""]);
         let jsonDataExerciseStart = {
@@ -329,15 +329,15 @@ export default function OrderWords({
   {
     const initialWords = _getWordsInSentence(exerciseContext);
     setSolutionWords(_initializeWordAttributes([...initialWords], initialWords));
-    console.log("Info: Getting Confusion Words");
-    console.log(bookmarksToStudy[0].from_lang);
+    if (IS_DEBUG) console.log("Info: Getting Confusion Words");
+    if (IS_DEBUG) console.log(bookmarksToStudy[0].from_lang);
     api.getConfusionWords(exerciseLang, exerciseContext, (cWords) => {
       let jsonCWords = JSON.parse(cWords)
       let apiConfuseWords = jsonCWords["confusion_words"]
       let exerciseWords = [...initialWords].concat(apiConfuseWords);
-      console.log(apiConfuseWords);
-      console.log("Exercise Words");
-      console.log(exerciseWords);
+      if (IS_DEBUG) console.log(apiConfuseWords);
+      if (IS_DEBUG) console.log("Exercise Words");
+      if (IS_DEBUG) console.log(exerciseWords);
       exerciseWords = shuffle(exerciseWords);
       let propWords = _initializeWordAttributes(exerciseWords, initialWords);
       setWordsReferenceStatus(propWords);
@@ -386,14 +386,14 @@ export default function OrderWords({
     if (inUse && (wordSwapId === NO_WORD_SELECTED_ID)) {
       // Select the Word for Swapping. 
       // Set the Color to Blue
-      console.log("Word Swap Id: " + wordSwapId);
-      console.log("Selected Choice: " + selectedChoice);
+      if (IS_DEBUG) console.log("Word Swap Id: " + wordSwapId);
+      if (IS_DEBUG) console.log("Selected Choice: " + selectedChoice);
       // Save the previous status.
       setWordSwapStatus(wordSelected.status);
 
       wordSelected.status = "toSwap";
 
-      console.log(updatedReferenceStatus);
+      if (IS_DEBUG) console.log(updatedReferenceStatus);
       setWordSwapId(selectedChoice);
       setWordsReferenceStatus(updatedReferenceStatus);
       setUserSolutionWordArray(newUserSolutionWordArray);
@@ -402,9 +402,9 @@ export default function OrderWords({
 
     // Handle the case where we swap a selected word.
     if (wordSwapId !== NO_WORD_SELECTED_ID && selectedChoice !== wordSwapId ) {
-      console.log("Swapping words!")
-      console.log("Word Swap Id: " + wordSwapId);
-      console.log("Selected Choice: " + selectedChoice);
+      if (IS_DEBUG) console.log("Swapping words!");
+      if (IS_DEBUG) console.log("Word Swap Id: " + wordSwapId);
+      if (IS_DEBUG) console.log("Selected Choice: " + selectedChoice);
       // Update the Word to have the previous status
       let wordInSwapStatus = _getWordById(wordSwapId, newUserSolutionWordArray)
       wordInSwapStatus = { ...wordInSwapStatus }
@@ -427,12 +427,12 @@ export default function OrderWords({
           newUserSolutionWordArray[i] = wordInSwapStatus;
         }
       }
-      console.log(newUserSolutionWordArray);
+      if (IS_DEBUG) console.log(newUserSolutionWordArray);
       // wordReferenceStatus index match the id in words.
       updatedReferenceStatus[wordSwapId] = wordInSwapStatus;
       if (wordSwapId < 0 && selectedChoice >= 0){
         // We are swapping a placeholder token for a word.
-        newUserSolutionWordArray = _filterPlaceholders(newUserSolutionWordArray);
+        newUserSolutionWordArray = newUserSolutionWordArray.filter((word) => word.id !== wordSwapId); 
       }
       // Update all the statuses.
       setWordsReferenceStatus(updatedReferenceStatus);
@@ -458,7 +458,17 @@ export default function OrderWords({
       wordSelected.status = wordSwapStatus;
       setWordSwapStatus("");
     }
-    newUserSolutionWordArray = _filterPlaceholders(newUserSolutionWordArray);
+    // Remove the last placeholder token if a user adds a token
+    // Leave all other placeholders.
+    if (newUserSolutionWordArray.length > 2){
+      // Check if the previous token (before the one the user just added)
+      // is a placeholder token
+      let previousIdToken = newUserSolutionWordArray[newUserSolutionWordArray.length-2].id;
+      if(previousIdToken < 0){
+        // Is a placeholder token
+        newUserSolutionWordArray = newUserSolutionWordArray.filter((word) => word.id !== previousIdToken); 
+      }
+    }
 
     setWordSwapId(NO_WORD_SELECTED_ID);
     setWordsReferenceStatus(updatedReferenceStatus);
@@ -522,7 +532,7 @@ export default function OrderWords({
     // Remove all the words from the user
     // solution word array.
     if (isResetConfirmVisible) {
-      console.log("Run update counter.");
+      if (IS_DEBUG) console.log("Run update counter.");
       setResetCounter(resetCounter + 1);
     }
     handleUndoSelection();
@@ -530,7 +540,7 @@ export default function OrderWords({
     for (let i = 0; i < resetWords.length; i++) {
       resetWords[i].inUse = false;
     }
-    console.log(resetWords);
+    if (IS_DEBUG) console.log(resetWords);
     setUserSolutionWordArray([]);
     setIsCorrect(false);
     setWordsReferenceStatus(resetWords);
@@ -584,7 +594,7 @@ export default function OrderWords({
       // We need to ensure that we don't send the entire sentence,
       // or alignment might align very distant words.
       // We provide only the context up to + 1 what the user has constructed.
-      let resizedSolutionText = filterPunctuationSolArray.slice(0, newUserSolutionWordArray.length + 1).join(" ");
+      let resizedSolutionText = filterPunctuationSolArray.slice(0, newUserSolutionWordArray.length + 2).join(" ");
       api.annotateClues(
         newUserSolutionWordArray, 
         resizedSolutionText, 
@@ -607,7 +617,7 @@ export default function OrderWords({
     // Placeholders are negative in this exercise.
     let placeholderCounter = -1
 
-    console.log(updatedWordStatus);
+    if (IS_DEBUG) console.log(updatedWordStatus);
     for (let i = 0; i < updatedWordStatus.length; i++) {
       let wordWasPushed = false;
       let wordProp = updatedWordStatus[i];
@@ -636,8 +646,8 @@ export default function OrderWords({
       if (!wordProp.isCorrect) { errorCount++; }
       if (!wordWasPushed) { newUserSolutionWordArray.push(wordProp); }
     }
-    console.log("After adding the placeholders.")
-    console.log(newUserSolutionWordArray);
+    if (IS_DEBUG) console.log("After adding the placeholders.");
+    if (IS_DEBUG) console.log(newUserSolutionWordArray);
     let updatedErrorCounter = totalErrorCounter + errorCount
     let finalClueText = _updateClueText(cluesTextList, errorCount);
     setUserSolutionWordArray(newUserSolutionWordArray);
@@ -675,7 +685,7 @@ export default function OrderWords({
 
   // Handle the Loading screen while getting the text.
   if ((wordsReferenceStatus.length === 0 | translatedText === "") && !isCorrect) {
-    console.log("Running load animation.")
+    if (IS_DEBUG) console.log("Running load animation.");
     return <LoadingAnimation />;
   }
 
