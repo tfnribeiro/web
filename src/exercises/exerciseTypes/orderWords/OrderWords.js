@@ -219,20 +219,6 @@ export default function OrderWords({
     return exercise_start_data
   }
 
-  function _prepareStringForRegex(s){
-    // If there are characters that are escaped in regex, then
-    // escape them manually in the string.
-    let newString = ""
-    let escapedChar = /[.+*?^$()[\]{}|\\.]/g;
-    for (let i = 0; i < s.length; i++){
-      if (s[i].match(escapedChar)){
-        newString += "\\"
-      }
-      newString += s[i]
-    }
-    return newString
-  }
-
   // Exercise Functions / Setup / Handle Interactions
   
   useEffect(() => {
@@ -296,7 +282,7 @@ export default function OrderWords({
         // Line below is used for development with no API key (translatedContext is Null)
         if (!translatedContext) { translatedContext = exerciseContext; }
         if (exerciseContext.length < originalContext.length){
-          let startPos = originalContext.search(_prepareStringForRegex(exerciseContext));
+          let startPos = originalContext.indexOf(exerciseContext);
           let contextLen = originalContext.length;
           setTextBeforeTranslatedText(originalContext.slice(0,startPos));
           setTextAfterTranslatedText(originalContext.slice(startPos+exerciseContext.length,contextLen));
