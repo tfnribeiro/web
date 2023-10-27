@@ -12,9 +12,24 @@ Zeeguu_API.prototype.getUserArticles = function (callback) {
     const deduplicated = articles.filter(
       ({ id }, index) => !ids.includes(id, index + 1)
     );
+    console.log(deduplicated);
     callback(deduplicated);
   });
 };
+
+Zeeguu_API.prototype.getSavedUserArticles = function (callback) {
+  this._getJSON("user_articles/saved", (articles) => {
+    // sometimes we get duplicates from the server
+    // deduplicate them here
+    // fast deduplication cf. https://stackoverflow.com/a/64791605/1200070
+    const ids = articles.map((o) => o.id);
+    const deduplicated = articles.filter(
+        ({ id }, index) => !ids.includes(id, index + 1)
+    );
+    callback(deduplicated);
+  });
+};
+
 
 Zeeguu_API.prototype.search = function (term, callback) {
   return this._getJSON(`search/${term}`, (articles) => {

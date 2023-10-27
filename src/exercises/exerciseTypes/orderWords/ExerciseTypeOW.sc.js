@@ -5,6 +5,7 @@ import {
     darkGreen,
     zeeguuRed,
     darkBlue,
+    darkGrey,
 } from "../../../components/colors";
 
 const ExerciseOW = styled.div`
@@ -84,11 +85,14 @@ const ExerciseOW = styled.div`
     text-align: center;
     display: inline-block;
     margin-top: -10px;
-    margin-bottom: -5px;
+    margin-bottom: 2px;
     border-style: solid;
-    border-width: 2px 0px 0px 0px;
+    border-width: 4px 0px 4px 0px;
     border-radius: 10px;
-    border-color: #e5e5e5;
+    border-color: #006400;
+    background-color: #0064001c;
+    margin-left: 10px;
+    margin-right: 10px;
     
     h4 {
       margin-top: 0px;
@@ -118,6 +122,7 @@ const ExerciseOW = styled.div`
     @media (max-width: 430px) {
       font-size: 14px;
     }
+    
   }
 
 
@@ -245,14 +250,44 @@ const ExerciseOW = styled.div`
 
   }
 
+  .grab {
+        cursor: move;
+        cursor: grab;
+        cursor: -moz-grab;
+        cursor: -webkit-grab;
+        .thumbnails-list{
+            cursor: pointer;
+        }
+    }
+
+    .grab:active {
+        cursor: grabbing;
+        cursor: -moz-grabbing;
+        cursor: -webkit-grabbing;
+    }
+
+
   .toSwap {
     outline: 4px ${darkBlue} dashed;
-    background-color: #6db9d92b !important;
     color: #000000bf;
+    background-color: #6db9d92b !important;
+  }
+
+  .toDragLeft {
+    outline: 2px ${darkBlue} solid;
+    border-left: 5px ${darkBlue} solid;
+    filter: brightness(0.90);
+  }
+
+  .toDragRight {
+    outline: 2px ${darkBlue} solid;
+    border-right: 5px ${darkBlue} solid;
+    filter: brightness(0.90);
   }
 
   .greyOut {
     background-color: #595959;
+    visibility: hidden;
   }
   
   .disable {
@@ -360,11 +395,13 @@ let OrangeItemCompactConstruct = styled(StyledButton)`
   background-color: ${zeeguuOrange};
   margin: 0.05em;
   padding: 0.5em 0.5em;
-  & .correct :hover {
+  & .correct{
   }
-
   & .toSwap {
     color:black;
+  }
+  &:hover {
+    filter: brightness(0.9);
   }
   @media (max-width: 430px) {
     font-size: 10px;

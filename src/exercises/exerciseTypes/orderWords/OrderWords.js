@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import * as sOW from "./ExerciseTypeOW.sc.js"
 import OrderWordsInput from "./OrderWordsInput.js";
 import SolutionFeedbackLinks from "../SolutionFeedbackLinks.js";
@@ -22,13 +22,15 @@ export default function OrderWords({
   toggleShow,
   reload,
   setReload,
+  exerciseSessionId
 }) {
 
+  // Constants for Exercise
   const exerciseLang = bookmarksToStudy[0].from_lang;
   const NO_WORD_SELECTED_ID = -100;
   const MAX_CONTEXT_LENGTH = 15;
   const ENABLE_SHORTER_CONTEXT_BUTTON = false;
-  const IS_DEBUG = false;
+  const IS_DEBUG = true;
 
   const [initialTime, setInitialTime] = useState(new Date());
   //const [buttonOptions, setButtonOptions] = useState(null);
@@ -53,8 +55,87 @@ export default function OrderWords({
   const [isSentenceTooLong, setIsSentenceTooLong] = useState(false);
   const [textBeforeTranslatedText, setTextBeforeTranslatedText] = useState("");
   const [textAfterTranslatedText, setTextAfterTranslatedText] = useState("");
-  
-  if (IS_DEBUG) console.log("Running ORDER WORDS EXERCISE");
+  const dragItem = useRef();
+  const dragOverItem = useRef();
+  const dragOverStartStatus = useRef();
+
+
+  function _getCurrentExerciseTime() {
+    let pressTime = new Date();
+    console.log(pressTime - initialTime);
+    console.log("^^^^ time elapsed");
+    return pressTime - initialTime;
+  }
+
+  const dragStart = (e, position) => {
+    const copyListItems = [...userSolutionWordArray];
+    dragOverStartStatus.current = copyListItems.map(w => w.status);
+    dragItem.current = position;
+    copyListItems[position].status += " toDrag"
+    dragOverItem.current = position
+    setUserSolutionWordArray(copyListItems);
+  };
+
+  const dragEnter = (e, position) => {
+    // Insert a PlaceHolder token at the desired place it it isn't one
+    if (position == dragItem.current) { return }
+    const copyListItems = [...userSolutionWordArray];
+    if (position < dragItem.current) {
+      copyListItems[position].status += " toDragLeft"
+    }
+    else {
+      copyListItems[position].status += " toDragRight"
+    }
+
+    setUserSolutionWordArray(copyListItems);
+    dragOverItem.current = position
+    console.log(e.target.innerHTML);
+    console.log(dragOverItem.current);
+  };
+
+  const dragLeave = (e, position) => {
+    let actionTime = new Date();
+    if (position == dragItem.current) { return }
+    const copyListItems = [...userSolutionWordArray];
+    console.log(dragOverStartStatus.current);
+    copyListItems[position].status = dragOverStartStatus.current[position]
+    setUserSolutionWordArray(copyListItems);
+    console.log("Drag leave!")
+    console.log(e.target.innerHTML);
+  };
+
+  const drop = (e) => {
+    // If it is a placeholder token you drop it in remove it
+    let dropLocation = document.elementFromPoint(e.pageX, e.pageY)
+    if (!dropLocation.draggable) {
+      dragOverItem.current = dragItem.current;
+    }
+    let copyListItems = [...userSolutionWordArray];
+    if (!dragOverItem) {
+      copyListItems[dragItem.current].status = dragOverStartStatus.current[dragItem.current]
+      dragItem.current = null;
+    }
+    else {
+      const dragItemContent = copyListItems[dragItem.current];
+      const isDragOverPlaceholder = copyListItems[dragOverItem.current].isPlaceholder
+      const dragOverId = copyListItems[dragOverItem.current].id
+      copyListItems[dragItem.current].status = dragOverStartStatus.current[dragItem.current]
+      copyListItems[dragOverItem.current].status = dragOverStartStatus.current[dragOverItem.current]
+      copyListItems.splice(dragItem.current, 1);
+      copyListItems.splice(dragOverItem.current, 0, dragItemContent);
+      // if the dragOverItem is a placeholder token
+      // delete.
+      console.log(dragOverId)
+      if (isDragOverPlaceholder) {
+        copyListItems = copyListItems.filter((word) => word.id !== dragOverId);
+      }
+      dragItem.current = null;
+      dragOverItem.current = null;
+    }
+    setUserSolutionWordArray(copyListItems);
+  };
+
+  console.log("Running ORDER WORDS EXERCISE")
 
   function _removeEmptyTokens(tokenList) {
     // In some instance, there will be punctuation in the middle, which
@@ -68,9 +149,9 @@ export default function OrderWords({
     return _removeEmptyTokens(wordsForExercise)
   }
 
-  function _getWordsFromWordProps(wordPropList){
+  function _getWordsFromWordProps(wordPropList) {
     let wordList = []
-    for(let i = 0; i < wordPropList.length; i++){
+    for (let i = 0; i < wordPropList.length; i++) {
       wordList.push(wordPropList[i]["word"])
     }
     return wordList
@@ -121,7 +202,7 @@ export default function OrderWords({
     );
   }
 
-  function _getCurrentExerciseTime(){
+  function _getCurrentExerciseTime() {
     let pressTime = new Date();
     if (IS_DEBUG) console.log(pressTime - initialTime);
     if (IS_DEBUG) console.log("^^^^ time elapsed");
@@ -163,9 +244,9 @@ export default function OrderWords({
     return array
   }
 
-  function _constructPlaceholderWordProp(idToUse, symbol){
+  function _constructPlaceholderWordProp(idToUse, symbol) {
     let placeholderWProp = {
-      "id" : idToUse,
+      "id": idToUse,
       "word": symbol,
       "isPlaceholder": true,
       "inUse": true,
@@ -174,10 +255,10 @@ export default function OrderWords({
     return placeholderWProp
   }
 
-  function _filterPlaceholders(constructedWordArray){
-    let filterArray = constructedWordArray.filter((wordElement) => 
-    wordElement.id < wordsReferenceStatus.length && wordElement.id  >= 0);
-    for (let i = 0; i < filterArray.length; i++) { 
+  function _filterPlaceholders(constructedWordArray) {
+    let filterArray = constructedWordArray.filter((wordElement) =>
+      wordElement.id < wordsReferenceStatus.length && wordElement.id >= 0);
+    for (let i = 0; i < filterArray.length; i++) {
       let wordProp = filterArray[i]
       wordProp["hasPlaceholders"] = false
     }
@@ -220,7 +301,7 @@ export default function OrderWords({
   }
 
   // Exercise Functions / Setup / Handle Interactions
-  
+
   useEffect(() => {
     setExerciseType(EXERCISE_TYPE);
     let exerciseIntializeVariables = _get_exercise_start_variables()
@@ -236,7 +317,7 @@ export default function OrderWords({
     // to prepare the exercise, as well as the sentenceTooLong.
     setInitialTime(exerciseIntializeVariables["exerciseStartTime"]);
     setIsSentenceTooLong(exerciseIntializeVariables["isLongSentence"]);
-  },[])
+  }, [])
 
   function prepareContext(
     originalContext,
@@ -267,7 +348,7 @@ export default function OrderWords({
     if (IS_DEBUG) console.log("Getting Translation for ->" + exerciseContext);
     
     setExerciseContext(exerciseContext);
-    
+
     let originalContext = bookmarksToStudy[0].context.trim();
 
     api
@@ -281,14 +362,18 @@ export default function OrderWords({
         let translatedContext = data["translation"];
         // Line below is used for development with no API key (translatedContext is Null)
         if (!translatedContext) { translatedContext = exerciseContext; }
-        if (exerciseContext.length < originalContext.length){
+        if (exerciseContext.length < originalContext.length) {
           let startPos = originalContext.indexOf(exerciseContext);
           let contextLen = originalContext.length;
-          setTextBeforeTranslatedText(originalContext.slice(0,startPos));
-          setTextAfterTranslatedText(originalContext.slice(startPos+exerciseContext.length,contextLen));
-        }   
+          let textBeforeContext = originalContext.slice(0, startPos);
+          if (textBeforeContext[-1] !== " ") {
+            textBeforeContext = textBeforeContext + " "
+          }
+          setTextBeforeTranslatedText(textBeforeContext);
+          setTextAfterTranslatedText(originalContext.slice(startPos + exerciseContext.length, contextLen));
+        }
         setTranslatedText(translatedContext);
-        createConfusionWords(exerciseContext, translatedContext, 
+        createConfusionWords(exerciseContext, translatedContext,
           isSentenceTooLong, isHandlingLongSentences, startTime);
       })
       .catch(() => {
@@ -307,12 +392,11 @@ export default function OrderWords({
   }
 
   function createConfusionWords(
-    exerciseContext, 
-    translatedContext, 
+    exerciseContext,
+    translatedContext,
     isSentenceTooLong,
     isHandlingLongSentences,
-    startTime) 
-  {
+    startTime) {
     const initialWords = _getWordsInSentence(exerciseContext);
     setSolutionWords(_initializeWordAttributes([...initialWords], initialWords));
     if (IS_DEBUG) console.log("Info: Getting Confusion Words");
@@ -351,7 +435,7 @@ export default function OrderWords({
     handleUndoResetStatus();
     // Avoid swapping Words when the exercise isCorrect.
     // this means we have finished the exercise.
-    if (isCorrect) { return } 
+    if (isCorrect) { return }
     // Create objects to update.
     let updatedReferenceStatus = [...wordsReferenceStatus];
     let newUserSolutionWordArray = [...userSolutionWordArray];
@@ -359,10 +443,10 @@ export default function OrderWords({
     let wordSelected = _getWordById(selectedChoice, updatedReferenceStatus);
 
     // It's a placeholder token. (negative Ids)
-    if (selectedChoice < 0){
+    if (selectedChoice < 0) {
       // Don't do anything if the user selects the same
       // placeholder token
-      if ( wordSwapId === selectedChoice ) { return }
+      if (wordSwapId === selectedChoice) { return }
       // The placeholder tokens are not in the MasterStatus.
       wordSelected = _getWordById(selectedChoice, newUserSolutionWordArray)
     }
@@ -374,10 +458,14 @@ export default function OrderWords({
       // Set the Color to Blue
       if (IS_DEBUG) console.log("Word Swap Id: " + wordSwapId);
       if (IS_DEBUG) console.log("Selected Choice: " + selectedChoice);
+      // Get the reference in the
+      let constructorWordSelected = _getWordById(selectedChoice, newUserSolutionWordArray)
+
       // Save the previous status.
       setWordSwapStatus(wordSelected.status);
 
       wordSelected.status = "toSwap";
+      constructorWordSelected.status = "toSwap";
 
       if (IS_DEBUG) console.log(updatedReferenceStatus);
       setWordSwapId(selectedChoice);
@@ -387,7 +475,7 @@ export default function OrderWords({
     }
 
     // Handle the case where we swap a selected word.
-    if (wordSwapId !== NO_WORD_SELECTED_ID && selectedChoice !== wordSwapId ) {
+    if (wordSwapId !== NO_WORD_SELECTED_ID && selectedChoice !== wordSwapId) {
       if (IS_DEBUG) console.log("Swapping words!");
       if (IS_DEBUG) console.log("Word Swap Id: " + wordSwapId);
       if (IS_DEBUG) console.log("Selected Choice: " + selectedChoice);
@@ -416,9 +504,9 @@ export default function OrderWords({
       if (IS_DEBUG) console.log(newUserSolutionWordArray);
       // wordReferenceStatus index match the id in words.
       updatedReferenceStatus[wordSwapId] = wordInSwapStatus;
-      if (wordSwapId < 0 && selectedChoice >= 0){
+      if (wordSwapId < 0 && selectedChoice >= 0) {
         // We are swapping a placeholder token for a word.
-        newUserSolutionWordArray = newUserSolutionWordArray.filter((word) => word.id !== wordSwapId); 
+        newUserSolutionWordArray = newUserSolutionWordArray.filter((word) => word.id !== wordSwapId);
       }
       // Update all the statuses.
       setWordsReferenceStatus(updatedReferenceStatus);
@@ -429,16 +517,17 @@ export default function OrderWords({
 
     // Add the Word to the userSolutionArea
     if (!wordSelected.inUse) {
-      newUserSolutionWordArray.push(wordSelected);
+      newUserSolutionWordArray.push({ ...wordSelected });
+      newUserSolutionWordArray[newUserSolutionWordArray.length - 1].inUse = !wordSelected.inUse
     }
     else {
       // In case the user selected the same word twice, we remove it.
-      newUserSolutionWordArray = newUserSolutionWordArray.filter((wordElement) => 
+      newUserSolutionWordArray = newUserSolutionWordArray.filter((wordElement) =>
         wordElement.id !== wordSelected.id);
     }
     // Toggle the inUse flag
     wordSelected.inUse = !wordSelected.inUse;
-    
+
     // If there was a selected word, we return it to the previous state.
     if (wordSelected.status === "toSwap") {
       wordSelected.status = wordSwapStatus;
@@ -446,13 +535,13 @@ export default function OrderWords({
     }
     // Remove the last placeholder token if a user adds a token
     // Leave all other placeholders.
-    if (newUserSolutionWordArray.length > 2){
+    if (newUserSolutionWordArray.length > 2) {
       // Check if the previous token (before the one the user just added)
       // is a placeholder token
-      let previousIdToken = newUserSolutionWordArray[newUserSolutionWordArray.length-2].id;
-      if(previousIdToken < 0){
+      let previousIdToken = newUserSolutionWordArray[newUserSolutionWordArray.length - 2].id;
+      if (previousIdToken < 0) {
         // Is a placeholder token
-        newUserSolutionWordArray = newUserSolutionWordArray.filter((word) => word.id !== previousIdToken); 
+        newUserSolutionWordArray = newUserSolutionWordArray.filter((word) => word.id !== previousIdToken);
       }
     }
 
@@ -484,7 +573,8 @@ export default function OrderWords({
       message,
       EXERCISE_TYPE,
       duration,
-      bookmarksToStudy[0].id
+      bookmarksToStudy[0].id,
+      exerciseSessionId
     );
 
     let jsonDataExerciseEnd = {
@@ -557,14 +647,14 @@ export default function OrderWords({
   function handleCheck() {
     // Do nothing if empty
     if (userSolutionWordArray.length === 0) { return }
-    
+
     _resetSwapWordStatus();
     setHintCounter(hintCounter + 1);
 
     // Check if the solution is already the same
     let filterPunctuationSolArray = _getWordsFromWordProps(solutionWords);
     let newUserSolutionWordArray = _filterPlaceholders([...userSolutionWordArray]);
-    
+
     // Get the Constructed Sentence
     let userSolutionSentence = _getWordsFromWordProps(newUserSolutionWordArray).join(" ");
 
@@ -582,9 +672,9 @@ export default function OrderWords({
       // We provide only the context up to + 1 what the user has constructed.
       let resizedSolutionText = filterPunctuationSolArray.slice(0, newUserSolutionWordArray.length + 2).join(" ");
       api.annotateClues(
-        newUserSolutionWordArray, 
-        resizedSolutionText, 
-        exerciseLang, 
+        newUserSolutionWordArray,
+        resizedSolutionText,
+        exerciseLang,
         (updatedUserSolutionWords) => {
           updateWordsFromAPI(updatedUserSolutionWords, resizedSolutionText, userSolutionSentence);
         }
@@ -614,23 +704,23 @@ export default function OrderWords({
       if (wordProp.feedback !== "" && !wordProp.isCorrect) {
         cluesTextList.push(wordProp.feedback);
         errorTypesList.push(wordProp.error_type);
-        if (wordProp.error_type.slice(0,2) === "M:" && !wordProp["hasPlaceholders"]){
-          if (wordProp["missBefore"]) { 
-            newUserSolutionWordArray.push(_constructPlaceholderWordProp(placeholderCounter--, "✎")); 
+        if (wordProp.error_type.slice(0, 2) === "M:" && !wordProp["hasPlaceholders"]) {
+          if (wordProp["missBefore"]) {
+            newUserSolutionWordArray.push(_constructPlaceholderWordProp(placeholderCounter--, "✎"));
           }
           wordProp["hasPlaceholders"] = true;
-          newUserSolutionWordArray.push(wordProp);
-          if (!wordProp["missBefore"]){
+          newUserSolutionWordArray.push({ ...wordProp });
+          if (!wordProp["missBefore"]) {
             newUserSolutionWordArray.push(_constructPlaceholderWordProp(placeholderCounter--, "✎"));
           }
           wordWasPushed = true;
         }
-        else{
+        else {
           wordProp["hasPlaceholders"] = false;
         }
       };
       if (!wordProp.isCorrect) { errorCount++; }
-      if (!wordWasPushed) { newUserSolutionWordArray.push(wordProp); }
+      if (!wordWasPushed) { newUserSolutionWordArray.push({ ...wordProp }); }
     }
     if (IS_DEBUG) console.log("After adding the placeholders.");
     if (IS_DEBUG) console.log(newUserSolutionWordArray);
@@ -644,7 +734,7 @@ export default function OrderWords({
       resizeSol, errorCount, finalClueText, errorTypesList, updatedErrorCounter);
   }
 
-  function handleReduceContext(){
+  function handleReduceContext() {
     let newIsHandleLongSentences = !isHandlingLongSentences;
     let exerciseIntializeVariables = _get_exercise_start_variables()
     // Handle the case of long sentences, this relies on activating the functionality. 
@@ -654,7 +744,7 @@ export default function OrderWords({
       newIsHandleLongSentences,
       exerciseIntializeVariables["isLongSentence"],
       exerciseIntializeVariables["exerciseStartTime"]);
-      
+
     // Ensure the exercise time is set to the same that was used 
     // to prepare the exercise, as well as the sentenceTooLong.
     setInitialTime(exerciseIntializeVariables["exerciseStartTime"]);
@@ -690,7 +780,9 @@ export default function OrderWords({
       )}
 
       {(userSolutionWordArray.length > 0 || !isCorrect) && (
-        <div className={`orderWordsItem ${wordSwapId !== NO_WORD_SELECTED_ID ? 'select' : ''}`}>
+        <div className={`orderWordsItem ${wordSwapId !== NO_WORD_SELECTED_ID ? 'select' : ''}`}
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={drop}>
           <OrderWordsInput
             buttonOptions={userSolutionWordArray}
             notifyChoiceSelection={notifyChoiceSelection}
@@ -699,16 +791,19 @@ export default function OrderWords({
             handleShowSolution={handleShowSolution}
             toggleShow={toggleShow}
             isWordSoup={false}
+            onDragStartHandle={dragStart}
+            onDragEnterHandle={dragEnter}
+            onDragLeaveHandle={dragLeave}
           />
         </div>
       )}
 
-      {isCorrect && 
-      <div className="OWBottomRow">
-        <h4>{strings.orderWordsCorrectMessage}</h4>
-        <p>{bookmarksToStudy[0].context}</p>
-        <p>Word you bookmarked: <b>'{bookmarksToStudy[0].from}'</b></p>
-      </div>}
+      {isCorrect &&
+        <div className="OWBottomRow">
+          <h4>{strings.orderWordsCorrectMessage}</h4>
+          <p>{bookmarksToStudy[0].context}</p>
+          <p>Word you bookmarked: <b>'{bookmarksToStudy[0].from}'</b></p>
+        </div>}
       {wordsReferenceStatus.length === 0 && !isCorrect && <LoadingAnimation />}
       {!isCorrect && (
         <OrderWordsInput
@@ -724,12 +819,12 @@ export default function OrderWords({
 
       {!isCorrect && (
         <sOW.ItemRowCompactWrap className="ItemRowCompactWrap">
-          <button onClick={handleResetClick} 
+          <button onClick={handleResetClick}
             className={userSolutionWordArray.length > 0 ? "owButton undo" : "owButton disable"}>
-              ↻ {strings.reset}
+            ↻ {strings.reset}
           </button>
-          <button onClick={handleCheck} 
-          className={userSolutionWordArray.length > 0 ? "owButton check" : "owButton disable"}>
+          <button onClick={handleCheck}
+            className={userSolutionWordArray.length > 0 ? "owButton check" : "owButton disable"}>
             {solutionWords.length <= userSolutionWordArray.length ? strings.check : strings.hint} ✔
           </button>
         </sOW.ItemRowCompactWrap>
@@ -767,15 +862,15 @@ export default function OrderWords({
         isCorrect={isCorrect}
       />
       {!isCorrect && (<p className="tipText">{strings.orderWordsTipMessage}</p>)}
-      {!isCorrect && ENABLE_SHORTER_CONTEXT_BUTTON &&(
+      {!isCorrect && ENABLE_SHORTER_CONTEXT_BUTTON && (
         <sOW.ItemRowCompactWrap className="ItemRowCompactWrap">
-          <button 
-            onClick={handleReduceContext} 
-            className={isHandlingLongSentences ? "owButton reduceContext correct" 
-            : "owButton reduceContext disable"}>
-              Toggle Short Context
+          <button
+            onClick={handleReduceContext}
+            className={isHandlingLongSentences ? "owButton reduceContext correct"
+              : "owButton reduceContext disable"}>
+            Toggle Short Context
           </button>
-        </sOW.ItemRowCompactWrap>  
+        </sOW.ItemRowCompactWrap>
       )
       }
     </sOW.ExerciseOW>
