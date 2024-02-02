@@ -39,6 +39,7 @@ export default function Match({
     ];
 
     const [initialTime] = useState(new Date());
+    const [messageToAPI, setMessageToAPI] = useState("");
     const [firstPressTime, setFirstPressTime] = useState();
     const [currentBookmarksToStudy, setcurrentBookmarksToStudy] =
         useState(initialBookmarkState);
@@ -68,15 +69,19 @@ export default function Match({
         console.log("checking result...");
         let bookmarksCopy = {...currentBookmarksToStudy};
         let i;
+        let fullMessage = ""
         for (i = 0; i < bookmarksToStudy.length; i++) {
             let currentBookmark = bookmarksCopy[i];
             if (buttonsToDisable.length === 2) {
+                console.log("Updating message!");
+                fullMessage = fullMessage + "C";
                 setIsCorrect(true);
                 break;
             } else if (currentBookmark.bookmark.id === Number(firstChoice)) {
                 if (firstChoice === secondChoice) {
                     setButtonsToDisable((arr) => [...arr, firstChoice]);
                     let concatMessage = currentBookmark.messageToAPI + "C";
+                    fullMessage = fullMessage + concatMessage
                     bookmarksCopy[i].messageToAPI = concatMessage;
                     setcurrentBookmarksToStudy(bookmarksCopy);
                     correctAnswer(currentBookmark.bookmark);
@@ -85,6 +90,7 @@ export default function Match({
                     setIncorrectAnswer(secondChoice);
                     notifyIncorrectAnswer(currentBookmark.bookmark);
                     let concatMessage = currentBookmark.messageToAPI + "W";
+                    fullMessage = fullMessage + concatMessage
                     bookmarksCopy[i].messageToAPI = concatMessage;
                     setcurrentBookmarksToStudy(bookmarksCopy);
                 }
@@ -93,11 +99,14 @@ export default function Match({
                     setIncorrectAnswer(secondChoice);
                     notifyIncorrectAnswer(currentBookmark.bookmark);
                     let concatMessage = currentBookmark.messageToAPI + "W";
+                    fullMessage = fullMessage + concatMessage
                     bookmarksCopy[i].messageToAPI = concatMessage;
                     setcurrentBookmarksToStudy(bookmarksCopy);
                 }
             }
+            
         }
+        setMessageToAPI(fullMessage)
     }
 
     function handleShowSolution() {
@@ -108,7 +117,7 @@ export default function Match({
             if (!currentBookmarksToStudy[i].messageToAPI.includes("C")) {
                 notifyIncorrectAnswer(currentBookmarksToStudy[i].bookmark);
                 let concatMessage = currentBookmarksToStudy[i].messageToAPI + "S";
-
+                setMessageToAPI(messageToAPI + concatMessage)
                 api.uploadExerciseFinalizedData(
                     concatMessage,
                     EXERCISE_TYPE,
@@ -123,7 +132,7 @@ export default function Match({
 
     function handleAnswer(message, id) {
         let pressTime = new Date();
-
+        setMessageToAPI(message);
         api.uploadExerciseFinalizedData(
             message,
             EXERCISE_TYPE,
@@ -165,9 +174,12 @@ export default function Match({
                 setReload={setReload}
             />
             <NextNavigation
+                message={messageToAPI}
                 api={api}
                 bookmarksToStudy={initialBookmarkState}
                 moveToNextExercise={moveToNextExercise}
+                reload={reload}
+                setReload={setReload}
                 handleShowSolution={handleShowSolution}
                 toggleShow={toggleShow}
                 isCorrect={isCorrect}

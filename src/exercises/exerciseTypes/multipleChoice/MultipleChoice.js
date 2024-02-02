@@ -77,14 +77,13 @@ export default function MultipleChoice({
 
     function handleShowSolution() {
         let message = messageToAPI + "S";
-
         notifyIncorrectAnswer(bookmarksToStudy[0]);
         setIsCorrect(true);
         handleAnswer(message, exerciseDuration(new Date()));
     }
 
     function handleAnswer(message) {
-
+        setMessageToAPI(message);
         api.uploadExerciseFinalizedData(
             message,
             EXERCISE_TYPE,
@@ -143,6 +142,7 @@ export default function MultipleChoice({
                 />
             )}
                 <NextNavigation
+                    message={messageToAPI}
                     api={api}
                     bookmarksToStudy={bookmarksToStudy}
                     moveToNextExercise={moveToNextExercise}

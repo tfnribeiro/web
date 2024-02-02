@@ -134,7 +134,7 @@ export default function FindWordInContext({
         } else {
             concatMessage = message;
         }
-
+        setMessageToAPI(concatMessage);
         notifyIncorrectAnswer(bookmarksToStudy[0]);
         setIsCorrect(true);
         api.uploadExerciseFinalizedData(
@@ -148,9 +148,9 @@ export default function FindWordInContext({
 
     function handleCorrectAnswer(message) {
         let duration = exerciseDuration(firstTypeTime);
-
         correctAnswer(bookmarksToStudy[0]);
         setIsCorrect(true);
+        setMessageToAPI(message);
         api.uploadExerciseFinalizedData(
             message,
             EXERCISE_TYPE,
@@ -162,6 +162,7 @@ export default function FindWordInContext({
 
     function handleIncorrectAnswer() {
         alert("incorrect answer")
+        setMessageToAPI(messageToAPI + "W");
         notifyIncorrectAnswer(bookmarksToStudy[0]);
         setFirstTypeTime();
     }
@@ -203,6 +204,7 @@ export default function FindWordInContext({
             )}
             <NextNavigation
                  api={api}
+                 message={messageToAPI}
                  bookmarksToStudy={bookmarksToStudy}
                  moveToNextExercise={moveToNextExercise}
                  reload={reload}

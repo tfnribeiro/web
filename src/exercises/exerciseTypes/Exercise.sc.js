@@ -282,6 +282,19 @@ let BottomRowCompact = styled.div`
   }
 `;
 
+let BottomRowSmallTopMargin = styled.div`
+  display: flex;
+  padding: 0.5em;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 0.5em;
+
+  @media (max-width: 430px) {
+    flex-flow: row wrap;
+  }
+`;
+
+
 let StyledGreyButton = styled.button`
   background: none !important;
   border: none !important;
@@ -337,6 +350,7 @@ export {
   AnimatedInput,
   BottomRow,
   BottomRowCompact,
+  BottomRowSmallTopMargin,
   StyledGreyButton,
   StyledDiv,
   MatchButton,

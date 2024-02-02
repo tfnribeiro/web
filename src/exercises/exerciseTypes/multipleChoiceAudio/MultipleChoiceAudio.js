@@ -40,8 +40,9 @@ export default function MultipleChoiceAudio({
   const [currentChoice, setCurrentChoice] = useState("");
   const [firstTypeTime, setFirstTypeTime] = useState();
   const [selectedButtonId, setSelectedButtonId] = useState("");
+
+  // bookmarkToStudy is expected to be a list.
   const bookmarkToStudy = [bookmarksToStudy[0]];
-  const exercise = "exercise";
 
   console.log("exercise session id: " + exerciseSessionId);
 
@@ -123,20 +124,20 @@ export default function MultipleChoiceAudio({
     let pressTime = new Date();
     let duration = exerciseDuration(pressTime);
     let message = messageToAPI + "S";
-
     notifyIncorrectAnswer(bookmarksToStudy[0]);
     setIsCorrect(true);
     handleAnswer(message, duration);
   }
 
   function handleIncorrectAnswer() {
+    setMessageToAPI(messageToAPI + "W");
     notifyIncorrectAnswer(bookmarksToStudy[0]);
     setFirstTypeTime(new Date());
   }
 
   function handleAnswer(message) {
     let pressTime = new Date();
-
+    setMessageToAPI(message);
     api.uploadExerciseFinalizedData(
       message,
       EXERCISE_TYPE,
@@ -258,26 +259,12 @@ export default function MultipleChoiceAudio({
               bookmarkToStudy={bookmarksToStudy[0].from}
             />
           </div>
-          <s.CenteredRow>
-            <SpeakButton
-              bookmarkToStudy={bookmarkToStudy}
-              api={api}
-              style="next"
-            />
-            <br></br>
-            <EditButton
-              bookmark={bookmarksToStudy[0]}
-              api={api}
-              styling={exercise}
-              reload={reload}
-              setReload={setReload}
-            />
-          </s.CenteredRow>
         </>
       )}
       <NextNavigation
+        message={messageToAPI}
         api={api}
-        bookmarksToStudy={bookmarksToStudy}
+        bookmarksToStudy={bookmarkToStudy}
         moveToNextExercise={moveToNextExercise}
         reload={reload}
         setReload={setReload}

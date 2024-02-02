@@ -46,7 +46,7 @@ export default function OrderWords({
     const [hintCounter, setHintCounter] = useState(0);
     const [totalErrorCounter, setTotalErrorCounter] = useState(0);
     const [wordsReferenceStatus, setWordsReferenceStatus] = useState([]);
-    const [messageToAPI, setMessageToApi] = useState("");
+    const [messageToAPI, setMessageToAPI] = useState("");
     const [exerciseContext, setExerciseContext] = useState("");
     const [clueText, setClueText] = useState([]);
     const [exerciseText, setExerciseText] = useState("");
@@ -697,6 +697,7 @@ export default function OrderWords({
 
     function handleAnswer(message) {
         let duration = _getCurrentDuration();
+        setMessageToAPI(message);
         api.uploadExerciseFinalizedData(
             message,
             EXERCISE_TYPE,
@@ -783,7 +784,7 @@ export default function OrderWords({
             // or alignment might align very distant words.
             // We provide only the context up to + 1 what the user has constructed.
             let resizedSolutionText = filterPunctuationSolArray.slice(0, newUserSolutionWordArray.length + 2).join(" ");
-            setMessageToApi(messageToAPI + "H")
+            setMessageToAPI(messageToAPI + "H")
             let nlp_model_to_use = EXERCISE_TYPE === TYPE_L1_CONSTRUCTION ? translateLang : exerciseLang;
             api.annotateClues(
                 newUserSolutionWordArray,

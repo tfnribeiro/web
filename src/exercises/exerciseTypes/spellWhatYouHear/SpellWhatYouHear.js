@@ -66,10 +66,6 @@ export default function SpellWhatYouHear({
     }
   }
 
-  if (!articleInfo) {
-    return <LoadingAnimation />;
-  }
-
   function handleShowSolution(e, message) {
     e.preventDefault();
     let pressTime = new Date();
@@ -120,13 +116,14 @@ export default function SpellWhatYouHear({
   }
 
   function handleIncorrectAnswer() {
+    setMessageToAPI(messageToAPI + "W");
     notifyIncorrectAnswer(bookmarksToStudy[0]);
     setFirstTypeTime(new Date());
   }
 
   function handleAnswer(message) {
     let pressTime = new Date();
-
+    setMessageToAPI(message);
     api.uploadExerciseFinalizedData(
       message,
       EXERCISE_TYPE,
@@ -138,7 +135,7 @@ export default function SpellWhatYouHear({
 
   function handleCorrectAnswer(message) {
     let duration = exerciseDuration(firstTypeTime);
-
+    setMessageToAPI(message);
     correctAnswer(bookmarksToStudy[0]);
     setIsCorrect(true);
     api.uploadExerciseFinalizedData(
@@ -148,6 +145,10 @@ export default function SpellWhatYouHear({
       bookmarksToStudy[0].id,
       exerciseSessionId
     );
+  }
+
+  if (!articleInfo) {
+    return <LoadingAnimation />;
   }
 
   return (
@@ -199,6 +200,7 @@ export default function SpellWhatYouHear({
       )}
       <NextNavigation
         api={api}
+        message={messageToAPI}
         bookmarksToStudy={bookmarksToStudy}
         moveToNextExercise={moveToNextExercise}
         reload={reload}
