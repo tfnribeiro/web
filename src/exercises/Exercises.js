@@ -57,6 +57,9 @@ export default function Exercises({
 
     function getExerciseSequenceType() {
         let exerciseTypesList = DEFAULT_SEQUENCE;
+        if (Feature.tiago_exercises()){
+            return EXERCISE_TYPES_TIAGO;
+        }
         if (!SessionStorage.isAudioExercisesEnabled()) {
             console.log("Will not use audio!")
             exerciseTypesList = DEFAULT_SEQUENCE_NO_AUDIO;

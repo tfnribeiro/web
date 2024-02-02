@@ -7,6 +7,8 @@ import NextNavigation from "../NextNavigation";
 import strings from "../../../i18n/definitions.js";
 import shuffle from "../../../assorted/fisherYatesShuffle";
 import {removePunctuation, tokenize} from "../../../utils/preprocessing/preprocessing";
+import InteractiveText from "../../../reader/InteractiveText.js";
+import { TranslatableText } from "../../../reader/TranslatableText.js";
 
 
 export default function OrderWords({
@@ -42,6 +44,7 @@ export default function OrderWords({
     const LEFT = 1;
 
     const [initialTime, setInitialTime] = useState(new Date());
+    const [interactiveText, setInteractiveText] = useState();
     const [resetCounter, setResetCounter] = useState(0);
     const [hintCounter, setHintCounter] = useState(0);
     const [totalErrorCounter, setTotalErrorCounter] = useState(0);
@@ -126,6 +129,17 @@ export default function OrderWords({
         setExerciseContext(exerciseContext);
 
         let originalContext = bookmarksToStudy[0].context.trim();
+        
+        api.getArticleInfo(bookmarksToStudy[0].article_id, (articleInfo) => {
+            setInteractiveText(
+              new InteractiveText(
+                bookmarksToStudy[0].context,
+                articleInfo,
+                api,
+                "TRANSLATE WORDS IN EXERCISE"
+              )
+            );
+          });
 
         api
             .basicTranlsate(
@@ -886,12 +900,23 @@ export default function OrderWords({
     return (
         <>
             <sOW.ExerciseOW className="orderWords" onTouchMove={handleTouchScroll} id="orderExercise">
-                {exerciseText === "" && !isCorrect && <LoadingAnimation/>}
-                <div className="headlineOrderWords">
-                    {strings.orderTheWordsToMakeTheHighlightedPhrase}
-                    <p className="translatedText">{textBeforeExerciseText}<b>{exerciseText}</b>{textAfterExerciseText}
-                    </p>
-                </div>
+                    <div className="headlineOrderWords">
+                        {strings.orderTheWordsToMakeTheHighlightedPhrase}
+                        { (!isCorrect || EXERCISE_TYPE === TYPE_L2_CONSTRUCTION) && (<p className="translatedText">{textBeforeExerciseText}<b>{exerciseText}</b>{textAfterExerciseText}
+                            </p>) }
+                    </div>
+                    { (isCorrect && EXERCISE_TYPE === TYPE_L1_CONSTRUCTION) && (
+                            <div className="contextExample"
+                                style={{paddingBottom: "1em"}}>
+                            <TranslatableText
+                            isCorrect={isCorrect}
+                            interactiveText={interactiveText}
+                            translating={true}
+                            pronouncing={false}
+                            bookmarkToStudy={bookmarksToStudy[0].from}
+                            />
+                        </div>)
+                    }
                 {isCluesRowVisible && (
                     <sOW.ItemRowCompactWrap className="cluesRow">
                         <h4>Clues</h4>
@@ -922,12 +947,22 @@ export default function OrderWords({
                     </div>
                 )}
 
-                {isCorrect &&
+                {(isCorrect && EXERCISE_TYPE === TYPE_L2_CONSTRUCTION) &&
                     <div className="OWBottomRow">
                         <h4>{strings.orderWordsCorrectMessage}</h4>
-                        <p>{bookmarksToStudy[0].context}</p>
-                        <p>Word you bookmarked: <b>'{bookmarksToStudy[0].from}'</b></p>
+                        <div className="contextExample">
+                            <TranslatableText
+                            isCorrect={isCorrect}
+                            interactiveText={interactiveText}
+                            translating={true}
+                            pronouncing={false}
+                            bookmarkToStudy={bookmarksToStudy[0].from}
+                            />
+                        </div>
                     </div>}
+                
+                {(isCorrect && EXERCISE_TYPE == TYPE_L1_CONSTRUCTION) &&
+                <h1>{bookmarksToStudy[0].to}</h1>}
 
                 {wordsReferenceStatus.length === 0 && !isCorrect && <LoadingAnimation/>}
 
