@@ -146,19 +146,17 @@ export default function Exercises({
         api.logReaderActivity(api.COMPLETED_EXERCISES, articleID, "", source);
         return (
             <>
-                <SpeechContext.Provider value={speechEngine}>
-                    <Congratulations
-                        articleID={articleID}
-                        correctBookmarks={correctBookmarks}
-                        incorrectBookmarks={incorrectBookmarks}
-                        api={api}
-                        backButtonAction={backButtonAction}
-                        keepExercisingAction={keepExercisingAction}
-                        source={source}
-                        totalTime={activeSessionDuration}
-                        exerciseSessionId={dbExerciseSessionId}
-                    />
-                </SpeechContext.Provider>
+                <Congratulations
+                    articleID={articleID}
+                    correctBookmarks={correctBookmarks}
+                    incorrectBookmarks={incorrectBookmarks}
+                    api={api}
+                    backButtonAction={backButtonAction}
+                    keepExercisingAction={keepExercisingAction}
+                    source={source}
+                    totalTime={activeSessionDuration}
+                    exerciseSessionId={dbExerciseSessionId}
+                />
             </>
         );
     }
