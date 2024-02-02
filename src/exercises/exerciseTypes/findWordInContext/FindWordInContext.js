@@ -201,19 +201,15 @@ export default function FindWordInContext({
                     setMessageToAPI={setMessageToAPI}
                 />
             )}
-            {isCorrect && (
-                <NextNavigation
-                    api={api}
-                    bookmarksToStudy={bookmarksToStudy}
-                    moveToNextExercise={moveToNextExercise}
-                    reload={reload}
-                    setReload={setReload}
-                />
-            )}
-            <SolutionFeedbackLinks
-                handleShowSolution={handleShowSolution}
-                toggleShow={toggleShow}
-                isCorrect={isCorrect}
+            <NextNavigation
+                 api={api}
+                 bookmarksToStudy={bookmarksToStudy}
+                 moveToNextExercise={moveToNextExercise}
+                 reload={reload}
+                 setReload={setReload}
+                 handleShowSolution={handleShowSolution}
+                 toggleShow={toggleShow}
+                 isCorrect={isCorrect}
             />
         </s.Exercise>
     );

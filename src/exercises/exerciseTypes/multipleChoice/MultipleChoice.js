@@ -142,20 +142,16 @@ export default function MultipleChoice({
                     toggleShow={toggleShow}
                 />
             )}
-            {isCorrect && (
                 <NextNavigation
                     api={api}
                     bookmarksToStudy={bookmarksToStudy}
                     moveToNextExercise={moveToNextExercise}
                     reload={reload}
                     setReload={setReload}
+                    handleShowSolution={handleShowSolution}
+                    toggleShow={toggleShow}
+                    isCorrect={isCorrect}
                 />
-            )}
-            <SolutionFeedbackLinks
-                handleShowSolution={handleShowSolution}
-                toggleShow={toggleShow}
-                isCorrect={isCorrect}
-            />
         </s.Exercise>
     );
 }

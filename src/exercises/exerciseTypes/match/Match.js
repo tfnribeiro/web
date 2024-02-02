@@ -48,10 +48,10 @@ export default function Match({
     const [incorrectAnswer, setIncorrectAnswer] = useState("");
 
     useEffect(() => {
+        console.log("STARTING ")
         setExerciseType(EXERCISE_TYPE);
         setButtonsToDisable([]);
         setFromButtonOptions(null);
-        setToButtonOptions(null);
         setButtonOptions();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -142,6 +142,7 @@ export default function Match({
         ];
         let shuffledOptions = shuffle(optionsToShuffle);
         setToButtonOptions(shuffledOptions);
+        console.log(shuffledOptions);
     }
 
     return (
@@ -163,15 +164,10 @@ export default function Match({
                 reload={reload}
                 setReload={setReload}
             />
-
-            {isCorrect && (
-                <NextNavigation
-                    api={api}
-                    bookmarksToStudy={toButtonOptions}
-                    moveToNextExercise={moveToNextExercise}
-                />
-            )}
-            <SolutionFeedbackLinks
+            <NextNavigation
+                api={api}
+                bookmarksToStudy={initialBookmarkState}
+                moveToNextExercise={moveToNextExercise}
                 handleShowSolution={handleShowSolution}
                 toggleShow={toggleShow}
                 isCorrect={isCorrect}

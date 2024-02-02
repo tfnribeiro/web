@@ -1,4 +1,4 @@
-import {useState, useEffect, useContext} from "react";
+import { useState, useEffect, useContext } from "react";
 import * as s from "../Exercise.sc.js";
 import BottomInput from "../findWordInContext/BottomInput.js";
 import SpeakButton from "../SpeakButton.js";
@@ -10,8 +10,8 @@ import SessionStorage from "../../../assorted/SessionStorage.js";
 import { TranslatableText } from "../../../reader/TranslatableText.js";
 import InteractiveText from "../../../reader/InteractiveText.js";
 import LoadingAnimation from "../../../components/LoadingAnimation.js";
-import {SpeechContext} from "../../SpeechContext.js";
-import DisableAudioSession from "../DisableAudioSession.js"
+import { SpeechContext } from "../../SpeechContext.js";
+import DisableAudioSession from "../DisableAudioSession.js";
 
 const EXERCISE_TYPE = "Spell_What_You_Hear";
 export default function SpellWhatYouHear({
@@ -26,7 +26,7 @@ export default function SpellWhatYouHear({
   toggleShow,
   reload,
   setReload,
-  exerciseSessionId
+  exerciseSessionId,
 }) {
   const [initialTime] = useState(new Date());
   const [firstTypeTime, setFirstTypeTime] = useState();
@@ -57,10 +57,8 @@ export default function SpellWhatYouHear({
       );
       setArticleInfo(articleInfo);
     });
-    if (!SessionStorage.isAudioExercisesEnabled())
-      handleDisabledAudio()
+    if (!SessionStorage.isAudioExercisesEnabled()) handleDisabledAudio();
   }, []);
-
 
   function inputKeyPress() {
     if (firstTypeTime === undefined) {
@@ -96,23 +94,18 @@ export default function SpellWhatYouHear({
     );
   }
 
-  function disableAudio(e){
+  function disableAudio(e) {
     e.preventDefault();
     SessionStorage.disableAudioExercises();
     handleDisabledAudio();
   }
 
   function exerciseDuration(endTime) {
-    return Math.min(89999, endTime - initialTime)
-}
+    return Math.min(89999, endTime - initialTime);
+  }
 
   function handleDisabledAudio() {
-    api.logUserActivity(
-      "AUDIO_DISABLE",
-      "",
-      bookmarksToStudy[0].id,
-      ""
-    );
+    api.logUserActivity("AUDIO_DISABLE", "", bookmarksToStudy[0].id, "");
     moveToNextExercise();
   }
 
@@ -135,11 +128,11 @@ export default function SpellWhatYouHear({
     let pressTime = new Date();
 
     api.uploadExerciseFinalizedData(
-        message,
-        EXERCISE_TYPE,
-        exerciseDuration(pressTime),
-        bookmarksToStudy[0].id,
-        exerciseSessionId
+      message,
+      EXERCISE_TYPE,
+      exerciseDuration(pressTime),
+      bookmarksToStudy[0].id,
+      exerciseSessionId
     );
   }
 
@@ -149,13 +142,13 @@ export default function SpellWhatYouHear({
     correctAnswer(bookmarksToStudy[0]);
     setIsCorrect(true);
     api.uploadExerciseFinalizedData(
-        message,
-        EXERCISE_TYPE,
-        duration,
-        bookmarksToStudy[0].id,
-        exerciseSessionId
+      message,
+      EXERCISE_TYPE,
+      duration,
+      bookmarksToStudy[0].id,
+      exerciseSessionId
     );
-}
+  }
 
   return (
     <s.Exercise>
@@ -202,24 +195,21 @@ export default function SpellWhatYouHear({
               bookmarkToStudy={bookmarksToStudy[0].from}
             />
           </div>
-          <NextNavigation
-            api={api}
-            bookmarksToStudy={bookmarksToStudy}
-            moveToNextExercise={moveToNextExercise}
-            reload={reload}
-            setReload={setReload}
-          />
         </>
       )}
-      <SolutionFeedbackLinks
+      <NextNavigation
+        api={api}
+        bookmarksToStudy={bookmarksToStudy}
+        moveToNextExercise={moveToNextExercise}
+        reload={reload}
+        setReload={setReload}
         handleShowSolution={handleShowSolution}
         toggleShow={toggleShow}
         isCorrect={isCorrect}
       />
-      {SessionStorage.isAudioExercisesEnabled() && 
-            <DisableAudioSession
-              disableAudio={disableAudio}
-            />}
+      {SessionStorage.isAudioExercisesEnabled() && (
+        <DisableAudioSession disableAudio={disableAudio} />
+      )}
     </s.Exercise>
   );
 }

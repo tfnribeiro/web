@@ -983,8 +983,7 @@ export default function OrderWords({
                     </div>
                 )
                 }
-                {isCorrect && (
-                    <NextNavigation
+                <NextNavigation
                         api={api}
                         // Added an empty bookmark to avoid showing the
                         // Listen Button.
@@ -993,13 +992,10 @@ export default function OrderWords({
                         reload={reload}
                         setReload={setReload}
                         isReadContext={true}
+                        handleShowSolution={handleShowSolution}
+                        toggleShow={toggleShow}
+                        isCorrect={isCorrect}
                     />
-                )}
-                <SolutionFeedbackLinks
-                    handleShowSolution={handleShowSolution}
-                    toggleShow={toggleShow}
-                    isCorrect={isCorrect}
-                />
                 {!isCorrect && (<p className="tipText">{strings.orderWordsTipMessage}</p>)}
                 {!isCorrect && ENABLE_SHORTER_CONTEXT_BUTTON && (
                     <sOW.ItemRowCompactWrap className="ItemRowCompactWrap">
