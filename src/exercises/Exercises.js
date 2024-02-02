@@ -14,7 +14,6 @@ import {SpeechContext} from "./SpeechContext";
 import SessionStorage from "../assorted/SessionStorage";
 import {useIdleTimer} from 'react-idle-timer'
 
-import ZeeguuSpeech from "../speech/ZeeguuSpeech";
 
 import {assignBookmarksToExercises} from "./assignBookmarksToExercises";
 
@@ -70,7 +69,6 @@ export default function Exercises({
         if (bookmarks.length > 0) {
             // This can only be initialized here after we can get at least one bookmakr
             // and thus, know the language to pronounce in
-            setSpeechEngine(new ZeeguuSpeech(api, bookmarks[0].from_lang));
 
             let exerciseSequenceType = getExerciseSequenceType();
 
@@ -236,7 +234,6 @@ export default function Exercises({
 
     return (
         <>
-            <SpeechContext.Provider value={speechEngine}>
                 <s.ExercisesColumn className="exercisesColumn">
                     {/*<s.LittleMessageAbove>*/}
                     {/*  {wordSourcePrefix} {wordSourceText}*/}
@@ -276,7 +273,6 @@ export default function Exercises({
                     activeSessionDuration={activeSessionDuration}
                     clockActive={clockActive}
                 />
-            </SpeechContext.Provider>
         </>
     );
 }

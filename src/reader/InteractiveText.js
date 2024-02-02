@@ -18,7 +18,6 @@ export default class InteractiveText {
     this.paragraphsAsLinkedWordLists = this.paragraphs.map(
       (each) => new LinkedWordList(each)
     );
-
     this.zeeguuSpeech = new ZeeguuSpeech(api, this.articleInfo.language);
   }
 
