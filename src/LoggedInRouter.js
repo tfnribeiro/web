@@ -7,13 +7,12 @@ import TeacherRouter from "./teacher/_routing/_TeacherRouter";
 import Settings from "./pages/Settings";
 import ArticleReader from "./reader/ArticleReader";
 import UserDashboard from "./userDashboard/UserDashboard";
-import React, { useState } from "react";
+import React from "react";
 import ReadingHistory from "./words/WordHistory";
 import { SpeechContext } from "./exercises/SpeechContext";
-import ZeeguuSpeech from "./speech/ZeeguuSpeech";
 
-export default function LoggedInRouter({ api, user, setUser }) {
-  const speechEngine = new ZeeguuSpeech(api, user["learned_language"]);
+
+export default function LoggedInRouter({ api, setUser, speechEngine }) {
   return (
     <>
       <SpeechContext.Provider value={speechEngine}>

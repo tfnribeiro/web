@@ -119,6 +119,7 @@ const sidebarMinimizedCommon = css`
 
 const navigationVisibleCommon = css`
   .navigationLink {
+    padding-left: 0.5em;
     display: block;
     color: white;
     margin-bottom: 0.4em;

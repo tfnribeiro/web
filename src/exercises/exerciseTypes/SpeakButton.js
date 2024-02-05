@@ -75,12 +75,19 @@ export default function SpeakButton({
   async function handleSpeak() {
     // If audio is playing don't let other buttons be clicked.
     if (SessionStorage.isAudioBeingPlayed()) return
-    setIsSpeaking(true);
-    SessionStorage.setAudioBeingPlayed(true);
-    if (isReadContext) { await speech.speakOut(bookmarkToStudy.context); }
-    else { await speech.speakOut(bookmarkToStudy.from); }
-    SessionStorage.setAudioBeingPlayed(false);
+    try {
+      setIsSpeaking(true);
+      SessionStorage.setAudioBeingPlayed(true);
+      if (isReadContext) { await speech.speakOut(bookmarkToStudy.context); }
+      else { await speech.speakOut(bookmarkToStudy.from); }
+      console.log(isSpeaking);
+    }
+    catch(err){
+      console.log("There was an error executing the speech.")
+    }
     setIsSpeaking(false);
+    SessionStorage.setAudioBeingPlayed(false);
+    console.log(isSpeaking);
   }
 
   return (
