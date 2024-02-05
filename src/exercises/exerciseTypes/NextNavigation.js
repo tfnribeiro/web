@@ -24,9 +24,15 @@ export default function NextNavigation({
       incorrectAttemptsCount++;
     }
   }
+  
+  // Load the images in the cache.
+  let arraySrcs=["/static/icons/zeeguu-icon-correct.png","/static/icons/zeeguu-icon-solution.png"]
 
   return (
     <>
+      {arraySrcs.map((e) => (
+        <img src={e} style={{ display: "none" }} />
+      ))}
       {isCorrect ? (
         (incorrectAttemptsCount < message.length ) ? (
           <div>
