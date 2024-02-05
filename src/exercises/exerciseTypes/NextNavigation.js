@@ -16,9 +16,6 @@ export default function NextNavigation({
   isCorrect,
   handleShowSolution,
 }) {
-  console.log("This is what I got!");
-  console.log(message);
-  console.log(bookmarksToStudy);
   const bookmarkToStudy = bookmarksToStudy[0];
   const exercise = "exercise";
   let incorrectAttemptsCount = 0;
@@ -28,15 +25,31 @@ export default function NextNavigation({
     }
   }
 
-  // <s.BottomRowSmallTopMargin>
-  //   {incorrectAttemptsCount === 0 ? (
-  //    <p>✅ Correct!</p>
-  //  ) : (
-  //    <p>⚠ Next time, for sure!</p>
-  //  )}
-  //</s.BottomRowSmallTopMargin>
   return (
     <>
+      {isCorrect ? (
+        (incorrectAttemptsCount < message.length ) ? (
+          <div>
+            <img
+              src={"/static/icons/zeeguu-icon-correct.png"}
+              style={{ width: "60px", mixBlendMode: "multiply", height: "auto", marginTop:"1em"}}
+              alt="Correct Icon"
+            />
+            <p><b>Correct!</b></p>
+          </div>
+        ) : (
+          <div>
+            <img
+              src={"/static/icons/zeeguu-icon-solution.png"}
+              style={{ width: "60px", mixBlendMode: "multiply", height: "auto", marginTop:"1em"}}
+              alt="Solution Icon"
+            />
+            <p><b>Next time, for sure!</b></p>
+          </div>
+        )
+      ) : (
+        <> </>
+      )}
       <s.BottomRowSmallTopMargin className="bottomRow">
         {isCorrect && bookmarksToStudy.length === 1 && (
           <s.EditSpeakButtonHolder>
@@ -57,18 +70,6 @@ export default function NextNavigation({
         )}
         {isCorrect && (
           <s.FeedbackButton
-            style={
-              incorrectAttemptsCount === 0
-                ? {
-                    backgroundColor: "green",
-                    width: "4em",
-                    height: "2.5em",
-                  }
-                : {
-                    width: "4em",
-                    height: "2.5em",
-                  }
-            }
             onClick={(e) => moveToNextExercise()}
             autoFocus
           >
