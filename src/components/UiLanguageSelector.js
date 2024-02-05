@@ -2,7 +2,7 @@ import strings from "../i18n/definitions";
 
 export default function UiLanguageSelector({ languages, selected, onChange }) {
   languages.sort((a, b) => (a.name > b.name) ? 1 : -1)
-
+  let key = 0;
   return (
     <select
       name="learned_language"
@@ -10,7 +10,7 @@ export default function UiLanguageSelector({ languages, selected, onChange }) {
       onChange={(e) => onChange(e)}
     >
       {languages.map((lang) => (
-        <option key={lang.code} code={lang.code}>
+        <option key={key++} code={lang.code}>
           {strings[lang.name.toLowerCase()]}
         </option>
       ))}

@@ -78,6 +78,7 @@ let FormButton = styled.button`
   background-color: orange;
   padding: 0.5em 1em;
   border-radius: 4px;
+  cursor: pointer;
 
   margin-bottom: 1em;
   margin-top: 1em;
