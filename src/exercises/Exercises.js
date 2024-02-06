@@ -8,9 +8,6 @@ import {setTitle} from "../assorted/setTitle";
 import strings from "../i18n/definitions";
 import FeedbackDisplay from "./bottomActions/FeedbackDisplay";
 import OutOfWordsMessage from "./OutOfWordsMessage";
-import Feature from "../features/Feature";
-import {SpeechContext} from "./SpeechContext";
-
 import SessionStorage from "../assorted/SessionStorage";
 import {useIdleTimer} from 'react-idle-timer'
 
@@ -49,7 +46,6 @@ export default function Exercises({
     const [reload, setReload] = useState(false);
 
     const [dbExerciseSessionId, setDbExerciseSessionId] = useState();
-    const [speechEngine, setSpeechEngine] = useState();
 
     const [activeSessionDuration, clockActive, setActivityOver] =
         useActivityTimer();
