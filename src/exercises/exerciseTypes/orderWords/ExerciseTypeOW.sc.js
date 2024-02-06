@@ -14,10 +14,16 @@ const ExerciseOW = styled.div`
   transition: all 0.5s;
   padding-bottom: 1em;
 
-  .headline {
+  .headline, .headlineWithMoreSpace{
+    font-size: ;
     color: gray;
     margin-top: 1em;
     font-weight: 500;
+  }
+
+  .headlineWithMoreSpace {
+    margin-top: 3em;
+    margin-bottom: 2em;
   }
 
   .translatedText {

@@ -888,7 +888,7 @@ export default function OrderWords({
         <>
             <sOW.ExerciseOW className="orderWords" onTouchMove={handleTouchScroll} id="orderExercise">
                 {exerciseText === "" && !isCorrect && <LoadingAnimation/>}
-                <div className="headlineOrderWords">
+                <div className="headline">
                     {strings.orderTheWordsToMakeTheHighlightedPhrase}
                     <p className="translatedText">{textBeforeExerciseText}<b>{exerciseText}</b>{textAfterExerciseText}
                     </p>
@@ -988,6 +988,7 @@ export default function OrderWords({
                         api={api}
                         // Added an empty bookmark to avoid showing the
                         // Listen Button.
+                        message={messageToAPI}
                         bookmarksToStudy={bookmarksToStudy}
                         moveToNextExercise={moveToNextExercise}
                         reload={reload}
