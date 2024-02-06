@@ -3,6 +3,8 @@ import SpeakButton from "./SpeakButton";
 import EditButton from "../../words/EditButton";
 import * as s from "./Exercise.sc";
 import SolutionFeedbackLinks from "./SolutionFeedbackLinks";
+import { random } from "../../utils/basic/arrays";
+import { useState } from "react";
 
 export default function NextNavigation({
   message,
@@ -25,8 +27,13 @@ export default function NextNavigation({
     }
   }
   
+  
   // Load the images in the cache.
-  let arraySrcs=["/static/icons/zeeguu-icon-correct.png","/static/icons/zeeguu-icon-solution.png"]
+  const arraySrcs=["/static/icons/zeeguu-icon-correct.png","/static/icons/zeeguu-icon-solution.png"];
+  const correctStrings = [strings.correctExercise1, strings.correctExercise2, strings.correctExercise3];
+  const solutionStrings = [strings.solutionExercise1, strings.solutionExercise2];
+  const correctMessage = useState(random(correctStrings));
+  const solutionMessage =  useState(random(solutionStrings));
 
   return (
     <>
@@ -41,7 +48,7 @@ export default function NextNavigation({
               style={{ width: "60px", mixBlendMode: "multiply", height: "auto", marginTop:"1em"}}
               alt="Correct Icon"
             />
-            <p><b>Correct!</b></p>
+            <p><b>{correctMessage}</b></p>
           </div>
         ) : (
           <div>
@@ -50,7 +57,7 @@ export default function NextNavigation({
               style={{ width: "60px", mixBlendMode: "multiply", height: "auto", marginTop:"1em"}}
               alt="Solution Icon"
             />
-            <p><b>Next time, for sure!</b></p>
+            <p><b>{solutionMessage}</b></p>
           </div>
         )
       ) : (

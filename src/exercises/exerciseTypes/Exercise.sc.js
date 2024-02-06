@@ -12,7 +12,7 @@ const Exercise = styled.div`
   transition: all 0.5s;
   padding-bottom: 1em;
 
-  .headline {
+  .headline, .headlineWithMoreSpace{
     font-size: ;
     color: gray;
     margin-top: 1em;
@@ -20,11 +20,8 @@ const Exercise = styled.div`
   }
 
   .headlineWithMoreSpace {
-    font-size: small;
-    color: gray;
     margin-top: 3em;
     margin-bottom: 2em;
-    /* font-weight: 600; */
   }
 
   .bottomInput {

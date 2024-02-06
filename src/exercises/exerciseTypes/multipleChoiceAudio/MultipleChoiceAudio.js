@@ -186,49 +186,49 @@ export default function MultipleChoiceAudio({
 
   return (
     <s.Exercise>
+      <div className="headlineWithMoreSpace">
+        {strings.multipleChoiceAudioHeadline}
+      </div>
+
+      <div className="contextExample">
+        <TranslatableText
+          isCorrect={isCorrect}
+          interactiveText={interactiveText}
+          translating={true}
+          pronouncing={false}
+          bookmarkToStudy={bookmarksToStudy[0].from}
+        />
+      </div>
+      
       {!isCorrect && (
-        <>
-          <div className="headlineWithMoreSpace">
-            {strings.multipleChoiceAudioHeadline}
-          </div>
-          <div className="contextExample">
-            <TranslatableText
-              isCorrect={isCorrect}
-              interactiveText={interactiveText}
-              translating={true}
-              pronouncing={false}
-              bookmarkToStudy={bookmarksToStudy[0].from}
-            />
-          </div>
-          <s.CenteredRow>
-            {/* Mapping bookmarks to the buttons in random order, setting button properties based on bookmark index */}
-            {choiceOptions ? (
-              choiceOptions.map((option) =>
-                0 !== option ? (
-                  <SpeakButton
-                    handleClick={() => buttonSelectFalse(option)}
-                    onClick={(e) => handleClick(option)}
-                    bookmarkToStudy={bookmarksToStudy[option]}
-                    api={api}
-                    id={option.id}
-                    styling={selectedButtonStyle(option)}
-                  />
-                ) : (
-                  <SpeakButton
-                    handleClick={() => buttonSelectTrue(option)}
-                    onClick={(e) => handleClick(option)}
-                    bookmarkToStudy={bookmarksToStudy[option]}
-                    api={api}
-                    id={option.id}
-                    styling={selectedButtonStyle(option)}
-                  />
-                )
+        <s.CenteredRow>
+          {/* Mapping bookmarks to the buttons in random order, setting button properties based on bookmark index */}
+          {choiceOptions ? (
+            choiceOptions.map((option) =>
+              0 !== option ? (
+                <SpeakButton
+                  handleClick={() => buttonSelectFalse(option)}
+                  onClick={(e) => handleClick(option)}
+                  bookmarkToStudy={bookmarksToStudy[option]}
+                  api={api}
+                  id={option.id}
+                  styling={selectedButtonStyle(option)}
+                />
+              ) : (
+                <SpeakButton
+                  handleClick={() => buttonSelectTrue(option)}
+                  onClick={(e) => handleClick(option)}
+                  bookmarkToStudy={bookmarksToStudy[option]}
+                  api={api}
+                  id={option.id}
+                  styling={selectedButtonStyle(option)}
+                />
               )
-            ) : (
-              <></>
-            )}
-          </s.CenteredRow>
-        </>
+            )
+          ) : (
+            <></>
+          )}
+        </s.CenteredRow>
       )}
 
       {!isCorrect && (
@@ -250,15 +250,7 @@ export default function MultipleChoiceAudio({
         <>
           <br></br>
           <h1 className="wordInContextHeadline">{bookmarksToStudy[0].to}</h1>
-          <div className="contextExample">
-            <TranslatableText
-              isCorrect={isCorrect}
-              interactiveText={interactiveText}
-              translating={true}
-              pronouncing={false}
-              bookmarkToStudy={bookmarksToStudy[0].from}
-            />
-          </div>
+
         </>
       )}
       <NextNavigation
