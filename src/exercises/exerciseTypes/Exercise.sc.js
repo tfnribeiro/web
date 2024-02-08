@@ -12,11 +12,7 @@ const Exercise = styled.div`
   transition: all 0.5s;
   padding-bottom: 1em;
 
-  .type-feedback p {
-    margin: 0.5em;
-  }
-
-  .headline {
+  .headline, .headlineWithMoreSpace{
     font-size: ;
     color: gray;
     margin-top: 1em;
@@ -234,26 +230,7 @@ let AnimatedMatchButton = styled(MatchButton)`
 
 let Input = styled.input`
   height: 1.5em;
-  width: 60%;
   text-align: center;
-  transition: all 0.3s;
-  border-radius: 0.5em;
-
-  &.wrong-border {
-    border-style: solid;
-    border-color: red !important;
-  }
-
-  &.almost-border {
-    border-style: solid;
-    border-color: ${zeeguuOrange} !important;
-  }
-  
-  &:focus {
-    outline: none !important;
-    height: 1.7em;
-    width: 80%;
-  }
 
   @media (max-width: 430px) {
     order: 3;

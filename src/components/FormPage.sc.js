@@ -88,7 +88,6 @@ let FormButton = styled.button`
   color: white;
   border: 1px solid yellow;
 
-  cursor: pointer;
   @media (min-width: 768px) {
     font-size: small;
   }

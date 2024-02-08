@@ -1,4 +1,4 @@
-import {useState, useEffect, useContext} from "react";
+import { useState, useEffect } from "react";
 import * as s from "../Exercise.sc.js";
 import SpeakButton from "../SpeakButton.js";
 import strings from "../../../i18n/definitions.js";
@@ -13,36 +13,33 @@ import AudioTwoBotInput from "./MultipleChoiceAudioBottomInput.js";
 import EditButton from "../../../words/EditButton.js";
 import DisableAudioSession from "../DisableAudioSession.js";
 import SessionStorage from "../../../assorted/SessionStorage.js";
-import {SpeechContext} from "../../SpeechContext.js";
+import { useContext } from "react";
 
 const EXERCISE_TYPE = "Multiple_Choice_Audio";
 
 export default function MultipleChoiceAudio({
-                                                api,
-                                                bookmarksToStudy,
-                                                correctAnswer,
-                                                notifyIncorrectAnswer,
-                                                setExerciseType,
-                                                isCorrect,
-                                                setIsCorrect,
-                                                moveToNextExercise,
-                                                toggleShow,
-                                                reload,
-                                                setReload,
-                                                exerciseSessionId
-                                            }) {
-    const [incorrectAnswer, setIncorrectAnswer] = useState("");
-    const [initialTime] = useState(new Date());
-    const [messageToAPI, setMessageToAPI] = useState("");
-    const [articleInfo, setArticleInfo] = useState();
-    const [interactiveText, setInteractiveText] = useState();
-    const [choiceOptions, setChoiceOptions] = useState(null);
-    const [currentChoice, setCurrentChoice] = useState("");
-    const [firstTypeTime, setFirstTypeTime] = useState();
-    const [selectedButtonId, setSelectedButtonId] = useState("");
-    const bookmarkToStudy = bookmarksToStudy[0];
-    const speech = useContext(SpeechContext);
-    const exercise = "exercise";
+  api,
+  bookmarksToStudy,
+  correctAnswer,
+  notifyIncorrectAnswer,
+  setExerciseType,
+  isCorrect,
+  setIsCorrect,
+  moveToNextExercise,
+  toggleShow,
+  reload,
+  setReload,
+  exerciseSessionId,
+}) {
+  const [incorrectAnswer, setIncorrectAnswer] = useState("");
+  const [initialTime] = useState(new Date());
+  const [messageToAPI, setMessageToAPI] = useState("");
+  const [articleInfo, setArticleInfo] = useState();
+  const [interactiveText, setInteractiveText] = useState();
+  const [choiceOptions, setChoiceOptions] = useState(null);
+  const [currentChoice, setCurrentChoice] = useState("");
+  const [firstTypeTime, setFirstTypeTime] = useState();
+  const [selectedButtonId, setSelectedButtonId] = useState("");
 
   // bookmarkToStudy is expected to be a list.
   const bookmarkToStudy = [bookmarksToStudy[0]];
@@ -66,24 +63,9 @@ export default function MultipleChoiceAudio({
     if (!SessionStorage.isAudioExercisesEnabled()) handleDisabledAudio();
   }, []);
 
-    useEffect(() => {
-        setExerciseType(EXERCISE_TYPE);
-        api.getArticleInfo(bookmarksToStudy[0].article_id, (articleInfo) => {
-            setInteractiveText(
-                new InteractiveText(
-                    bookmarksToStudy[0].context,
-                    articleInfo,
-                    api,
-                    "TRANSLATE WORDS IN EXERCISE",
-                    speech
-                )
-            );
-            setArticleInfo(articleInfo);
-        });
-        consolidateChoice();
-        if (!SessionStorage.isAudioExercisesEnabled())
-            handleDisabledAudio()
-    }, []);
+  function exerciseDuration(endTime) {
+    return Math.min(89999, endTime - initialTime);
+  }
 
   function disableAudio(e) {
     e.preventDefault();

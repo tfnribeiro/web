@@ -38,7 +38,6 @@ function voiceForLanguageCode(code, voices) {
 
 const ZeeguuSpeech = class {
     constructor(api, language) {
-        console.log("Creating Speech Object!")
         this.api = api;
         this.language = language;
         this.runningFromExtension = true;
