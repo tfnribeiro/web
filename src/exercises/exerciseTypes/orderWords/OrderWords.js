@@ -808,7 +808,6 @@ export default function OrderWords({
     let solutionWord = [...solutionWords];
     _setAllInWordsStatus(solutionWord, "correct");
     setUserSolutionWordArray(solutionWord);
-    notifyIncorrectAnswer(bookmarksToStudy[0]);
     setIsCorrect(true);
     setIsCluesRowVisible(false);
     handleAnswer(message, duration);
@@ -970,176 +969,6 @@ export default function OrderWords({
     if (IS_DEBUG) console.log("Running load animation.");
     return <LoadingAnimation />;
   }
-
-  return (
-    <>
-      <sOW.ExerciseOW
-        className="orderWords"
-        onTouchMove={handleTouchScroll}
-        id="orderExercise"
-      >
-        {exerciseText === "" && !isCorrect && <LoadingAnimation />}
-        <div className="headline">
-          {strings.orderTheWordsToMakeTheHighlightedPhrase}
-          <p className="translatedText">
-            {textBeforeExerciseText}
-            <b>{exerciseText}</b>
-            {textAfterExerciseText}
-          </p>
-        </div>
-        {isCluesRowVisible && (
-          <sOW.ItemRowCompactWrap className="cluesRow">
-            <h4>Clues</h4>
-            {clueText.length > 0 &&
-              clueText.map((clue, index) => <p key={index}>{clue}</p>)}
-          </sOW.ItemRowCompactWrap>
-        )}
-
-        {(userSolutionWordArray.length > 0 || !isCorrect) && (
-          <div
-            className={`orderWordsItem`}
-            id={SOLUTION_AREA_ID}
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={solutionOnDropEnd}
-            onTouchEnd={solutionOnTouchEnd}
-          >
-            <OrderWordsInput
-              buttonOptions={userSolutionWordArray}
-              notifyChoiceSelection={notifyChoiceSelection}
-              isCorrect={isCorrect}
-              setIsCorrect={setIsCorrect}
-              handleShowSolution={handleShowSolution}
-              toggleShow={toggleShow}
-              isWordSoup={false}
-              onDragStartHandle={solutionOnDragStart}
-              onDragOverHandle={solutionOnDragOver}
-              onDragLeaveHandle={solutionOnDragLeave}
-              onTouchStartHandle={solutionOnTouchStart}
-              onTouchMoveHandle={solutionOnTouchMove}
-            />
-          </div>
-        )}
-
-        {isCorrect && (
-          <div className="OWBottomRow">
-            <h4>{strings.orderWordsCorrectMessage}</h4>
-            <p>{bookmarksToStudy[0].context}</p>
-            <p>
-              Word you bookmarked: <b>'{bookmarksToStudy[0].from}'</b>
-            </p>
-          </div>
-        )}
-
-        {wordsReferenceStatus.length === 0 && !isCorrect && (
-          <LoadingAnimation />
-        )}
-
-        {!isCorrect && (
-          <div
-            id={WORD_SOUP_ID}
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={wordSoupOnDrop}
-            onTouchEnd={solutionOnTouchEnd}
-          >
-            <OrderWordsInput
-              buttonOptions={wordsReferenceStatus}
-              notifyChoiceSelection={notifyChoiceSelection}
-              incorrectAnswer={isCorrect}
-              setIncorrectAnswer={setIsCorrect}
-              handleShowSolution={handleShowSolution}
-              toggleShow={toggleShow}
-              isWordSoup={true}
-              onDragStartHandle={wordSoupOnDragStart}
-              onTouchStartHandle={wordSoupOnTouchStart}
-              onTouchMoveHandle={solutionOnTouchMove}
-            />
-          </div>
-        )}
-
-        {movingObject && (
-          <sOW.OrangeItemCompact
-            id={MOVE_ITEM_ID}
-            key={MOVE_ITEM_KEY}
-            status={movingObject.inUse}
-            className={movingObject.status + " renderDisable"}
-          >
-            {movingObject.word}
-          </sOW.OrangeItemCompact>
-        )}
-
-        {!isCorrect && (
-          <sOW.ItemRowCompactWrap className="ItemRowCompactWrap">
-            <button
-              onClick={handleResetClick}
-              className={
-                userSolutionWordArray.length > 0
-                  ? "owButton undo"
-                  : "owButton disable"
-              }
-            >
-              ↻ {strings.reset}
-            </button>
-            <button
-              onClick={handleCheck}
-              className={
-                userSolutionWordArray.length > 0
-                  ? "owButton check"
-                  : "owButton disable"
-              }
-            >
-              {solutionWords.length <= userSolutionWordArray.length
-                ? strings.check
-                : strings.hint}{" "}
-              ✔
-            </button>
-          </sOW.ItemRowCompactWrap>
-        )}
-
-        {isResetConfirmVisible && (
-          <div className="resetConfirmBar">
-            <button onClick={handleUndoResetStatus} className="owButton undo">
-              {strings.undo}
-            </button>
-            <p>{strings.corfirmReset}</p>
-            <button onClick={handleResetConfirm} className="owButton check">
-              {strings.confirm}
-            </button>
-          </div>
-        )}
-        <NextNavigation
-          api={api}
-          // Added an empty bookmark to avoid showing the
-          // Listen Button.
-          message={messageToAPI}
-          bookmarksToStudy={bookmarksToStudy}
-          moveToNextExercise={moveToNextExercise}
-          reload={reload}
-          setReload={setReload}
-          isReadContext={true}
-          handleShowSolution={handleShowSolution}
-          toggleShow={toggleShow}
-          isCorrect={isCorrect}
-        />
-        {!isCorrect && (
-          <p className="tipText">{strings.orderWordsTipMessage}</p>
-        )}
-        {!isCorrect && ENABLE_SHORTER_CONTEXT_BUTTON && (
-          <sOW.ItemRowCompactWrap className="ItemRowCompactWrap">
-            <button
-              onClick={handleReduceContext}
-              className={
-                isHandlingLongSentences
-                  ? "owButton reduceContext correct"
-                  : "owButton reduceContext disable"
-              }
-            >
-              Toggle Short Context
-            </button>
-          </sOW.ItemRowCompactWrap>
-        )}
-      </sOW.ExerciseOW>
-    </>
-  );
 
   function handleAnswer(message) {
     setMessageToAPI(message);
@@ -1515,8 +1344,8 @@ export default function OrderWords({
             </button>
           </div>
         )}
-        {isCorrect && (
           <NextNavigation
+            message={messageToAPI} 
             api={api}
             // Added an empty bookmark to avoid showing the
             // Listen Button.
@@ -1525,13 +1354,10 @@ export default function OrderWords({
             reload={reload}
             setReload={setReload}
             isReadContext={true}
+            handleShowSolution={handleShowSolution}
+            toggleShow={toggleShow}
+            isCorrect={isCorrect}
           />
-        )}
-        <SolutionFeedbackLinks
-          handleShowSolution={handleShowSolution}
-          toggleShow={toggleShow}
-          isCorrect={isCorrect}
-        />
         {!isCorrect && (
           <p className="tipText">{strings.orderWordsTipMessage}</p>
         )}
