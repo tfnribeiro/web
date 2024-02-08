@@ -27,10 +27,16 @@ const ExerciseOW = styled.div`
   }
 
   .translatedText {
-    font-size: medium;
+    font-size: medium !important;
     margin-left:8px;
     margin-right:8px;
+  }
 
+  .solutionText {
+    font-size: medium !important;
+    color: gray;
+    margin-right: 30px;
+    margin-left: 30px;
   }
 
   .headlineWithMoreSpace {
@@ -76,7 +82,6 @@ const ExerciseOW = styled.div`
     color: gray;
     margin-top: 1.5em;
     margin-bottom: 1em;
-
 
     /* font-weight: 600; */
     h2 {
