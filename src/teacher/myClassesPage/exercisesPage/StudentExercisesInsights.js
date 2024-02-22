@@ -28,7 +28,7 @@ export default function StudentExercisesInsights({ api }) {
       cohortID,
       selectedTimePeriod,
       (studentInfo) => setStudentName(studentInfo.name),
-      (error) => console.log(error)
+      (error) => console.log(error),
     );
 
     api.getStudentActivityOverview(
@@ -41,7 +41,7 @@ export default function StudentExercisesInsights({ api }) {
         setPractisedWordsCount(activity.practiced_words_count);
         setCompletedExercisesCount(activity.number_of_exercises);
       },
-      (error) => console.log(error)
+      (error) => console.log(error),
     );
     // eslint-disable-next-line
   }, [forceUpdate]);

@@ -45,11 +45,13 @@ export default function AlterMenu({
       {word.alternatives.map((each) => (
         <div
           key={each.translation}
-          onClick={(e) => selectAlternative(each.translation, shortenSource(each))}
+          onClick={(e) =>
+            selectAlternative(each.translation, shortenSource(each))
+          }
           className="additionalTrans"
         >
           {each.translation}
-          <div style={{ fontSize: 9, color: zeeguuDarkOrange}}>
+          <div style={{ fontSize: 9, color: zeeguuDarkOrange }}>
             {shortenSource(each)}
           </div>
         </div>

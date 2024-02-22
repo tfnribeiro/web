@@ -1,6 +1,9 @@
 import React from "react";
 import strings from "../../../i18n/definitions";
-import { StyledButton, PopupButtonWrapper } from "../../styledComponents/TeacherButtons.sc";
+import {
+  StyledButton,
+  PopupButtonWrapper,
+} from "../../styledComponents/TeacherButtons.sc";
 import { StyledDialog } from "../../styledComponents/StyledDialog.sc";
 
 const DeleteStudentWarning = ({

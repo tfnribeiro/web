@@ -1,5 +1,10 @@
 import { css } from "styled-components";
-import { almostBlack, errorRed, zeeguuOrange, zeeguuTransparentLightOrange } from "./colors";
+import {
+  almostBlack,
+  errorRed,
+  zeeguuOrange,
+  zeeguuTransparentLightOrange,
+} from "./colors";
 
 let formStyling = css`
   input,

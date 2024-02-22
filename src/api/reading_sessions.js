@@ -11,13 +11,13 @@ Zeeguu_API.prototype.readingSessionCreate = function (articleId, callback) {
   this._post(
     `reading_session_start`,
     qs.stringify({ article_id: articleId }),
-    after_extracting_json
+    after_extracting_json,
   );
 };
 
 Zeeguu_API.prototype.readingSessionUpdate = function (
   readingSessionId,
-  currentDuration
+  currentDuration,
 ) {
   let payload = {
     id: readingSessionId,
@@ -29,7 +29,7 @@ Zeeguu_API.prototype.readingSessionUpdate = function (
 
 Zeeguu_API.prototype.readingSessionEnd = function (
   readingSessionId,
-  totalTime
+  totalTime,
 ) {
   let payload = {
     id: readingSessionId,

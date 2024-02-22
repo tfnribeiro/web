@@ -2,7 +2,7 @@ import * as s from "../components/FormPage.sc";
 import { useState } from "react";
 import * as EmailValidator from "email-validator";
 import validator from "../assorted/validator";
-import strings from "../i18n/definitions"
+import strings from "../i18n/definitions";
 
 export default function ResetPasswordStep1({
   api,
@@ -30,7 +30,7 @@ export default function ResetPasswordStep1({
       },
       () => {
         setErrorMessage("inexistent email");
-      }
+      },
     );
   }
   return (

@@ -6,7 +6,7 @@ export function transformStudents(students) {
     const { reading_time, exercise_time } = student;
     const reading_percentage = getReadingPercentage(
       reading_time,
-      exercise_time
+      exercise_time,
     );
     const total_time = reading_time + exercise_time;
 
@@ -19,7 +19,7 @@ export function transformStudents(students) {
   });
   if (maxActivity > 240) {
     transformedStudents = transformedStudents.map((student) =>
-      addTotalAndNormalizedTime(student, maxActivity)
+      addTotalAndNormalizedTime(student, maxActivity),
     );
   }
   return transformedStudents;

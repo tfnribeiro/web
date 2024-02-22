@@ -7,11 +7,10 @@ import TeacherRouter from "./teacher/_routing/_TeacherRouter";
 import Settings from "./pages/Settings";
 import ArticleReader from "./reader/ArticleReader";
 import UserDashboard from "./userDashboard/UserDashboard";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import ReadingHistory from "./words/WordHistory";
 import { SpeechContext } from "./exercises/SpeechContext";
 import { ToastContainer } from "react-toastify";
-
 
 export default function LoggedInRouter({ api, setUser, speechEngine }) {
   return (

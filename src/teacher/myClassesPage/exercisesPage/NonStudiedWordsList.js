@@ -11,10 +11,10 @@ const NonStudiedWordsList = ({ api }) => {
   const cohortID = useParams().cohortID;
   const [nonStudiedWords, setNonStudiedWords] = useState([]);
   const wordsNotYetScheduled = nonStudiedWords.filter(
-    (word) => word.fit_for_study === 1
+    (word) => word.fit_for_study === 1,
   );
   const wordsExcludedByAlgorithm = nonStudiedWords.filter(
-    (word) => word.fit_for_study === null
+    (word) => word.fit_for_study === null,
   );
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const NonStudiedWordsList = ({ api }) => {
       },
       (error) => {
         console.log(error);
-      }
+      },
     );
     //eslint-disable-next-line
   }, [selectedTimePeriod]);

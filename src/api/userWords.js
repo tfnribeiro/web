@@ -22,16 +22,16 @@ Zeeguu_API.prototype.topBookmarks = function (count, callback) {
 
 Zeeguu_API.prototype.bookmarksForArticle = function (articleId, callback) {
   this._getJSON(`bookmarks_for_article/${articleId}`, (result) =>
-    callback(result.bookmarks)
+    callback(result.bookmarks),
   );
 };
 
 Zeeguu_API.prototype.bookmarksToStudyForArticle = function (
   articleId,
-  callback
+  callback,
 ) {
   this._getJSON(`bookmarks_to_study_for_article/${articleId}`, (result) =>
-    callback(result.bookmarks)
+    callback(result.bookmarks),
   );
 };
 

@@ -25,8 +25,7 @@ export default function EditText({ api }) {
     article_content: "",
     language_code: "default",
   });
-  const [showAddToCohortDialog, setShowAddToCohortDialog] =
-    useState(false);
+  const [showAddToCohortDialog, setShowAddToCohortDialog] = useState(false);
   const [showDeleteTextWarning, setShowDeleteTextWarning] = useState(false);
   const [showShareWithColleagueDialog, setShowShareWithColleagueDialog] =
     useState(false);
@@ -89,7 +88,7 @@ export default function EditText({ api }) {
         console.log(`article created with id: ${newID}`);
         setStateChanged(false);
         history.push("/teacher/texts");
-      }
+      },
     );
   };
 
@@ -106,7 +105,7 @@ export default function EditText({ api }) {
         } else {
           console.log(result);
         }
-      }
+      },
     );
   };
 

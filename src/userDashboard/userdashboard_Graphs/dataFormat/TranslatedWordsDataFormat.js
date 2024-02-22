@@ -79,7 +79,7 @@ function getLineDataForDays(
   endDate,
   daysToSubstract,
   legendStringFormat,
-  bottomLegend
+  bottomLegend,
 ) {
   var datesForInterval = {
     start: subDays(endDate, daysToSubstract),
@@ -90,7 +90,7 @@ function getLineDataForDays(
     data,
     datesForInterval.start,
     datesForInterval.end,
-    legendStringFormat
+    legendStringFormat,
   );
 
   return [{ id: bottomLegend, data: resultForInterval }];
@@ -102,7 +102,7 @@ function getLineDataForWeek(data, dateInWeek) {
     dateInWeek,
     6,
     STRING_FORMAT_FOR_DAY,
-    LINE_GRAPH_BOTTOM_LEGEND.WEEK
+    LINE_GRAPH_BOTTOM_LEGEND.WEEK,
   );
 }
 
@@ -113,7 +113,7 @@ function getLineDataForMonth(data, dateInMonth) {
     dateInMonth,
     30,
     STRING_FORMAT_FOR_DAY,
-    LINE_GRAPH_BOTTOM_LEGEND.MONTH
+    LINE_GRAPH_BOTTOM_LEGEND.MONTH,
   );
 }
 

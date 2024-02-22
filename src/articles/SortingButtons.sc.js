@@ -8,7 +8,7 @@ const SortingButtons = styled.div`
   display: flex;
   justify-content: flex-end;
   font-size: medium;
-  
+
   .sort-by {
     padding-top: 0.3em;
   }
@@ -16,7 +16,7 @@ const SortingButtons = styled.div`
   ${(props) =>
     props.isOnTeacherSite &&
     css`
-    margin-right: 13.7em;
+      margin-right: 13.7em;
     `}
 
   .descending::after {
@@ -46,11 +46,9 @@ const SortButton = styled(b.RoundButton)`
   ${(props) =>
     props.isOnTeacherSite &&
     css`
-    margin-left: 2vw;
-    font-size: medium;
-    
-    `
-  }
+      margin-left: 2vw;
+      font-size: medium;
+    `}
 `;
 
 export { SortingButtons, SortButton };

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { convertTime, timeExplanation } from "../../sharedComponents/FormattedTime";
+import {
+  convertTime,
+  timeExplanation,
+} from "../../sharedComponents/FormattedTime";
 import * as s from "../../styledComponents/StudentActivityBar.sc";
 import { StyledTooltip } from "../../styledComponents/StyledTooltip.sc";
 

@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import { darkBlue, lightBlue, darkGrey, errorRed } from "../../components/colors";
+import {
+  darkBlue,
+  lightBlue,
+  darkGrey,
+  errorRed,
+} from "../../components/colors";
 
 export const StyledNonStudiesWordCard = styled.div`
   .non-studied-word-container {

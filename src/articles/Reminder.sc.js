@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {zeeguuTransparentLightOrange} from "../components/colors"
+import { zeeguuTransparentLightOrange } from "../components/colors";
 
 let ExtensionReminder = styled.div`
   background-color: ${zeeguuTransparentLightOrange};
@@ -10,7 +10,7 @@ let ExtensionReminder = styled.div`
 
   @media only screen and (max-width: 600px) {
     max-width: 92%;
-}
+  }
 `;
 
 export { ExtensionReminder };

@@ -3,11 +3,7 @@ function multipleAuthors(authors_str) {
 }
 
 export default function ArticleAuthors({ articleInfo }) {
-const firstAuthor = articleInfo.authors.split(",")[0].trim();
+  const firstAuthor = articleInfo.authors.split(",")[0].trim();
 
-  return (
-    <div>
-      {firstAuthor}
-    </div>
-  );
+  return <div>{firstAuthor}</div>;
 }

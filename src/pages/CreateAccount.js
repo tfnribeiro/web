@@ -31,8 +31,8 @@ export default function CreateAccount({ api, signInAndRedirect }) {
 
   useEffect(() => {
     api.getSystemLanguages((languages) => {
-      languages.learnable_languages.sort((a, b) => (a.name > b.name) ? 1 : -1)
-      languages.native_languages.sort((a, b) => (a.name > b.name) ? 1 : -1)
+      languages.learnable_languages.sort((a, b) => (a.name > b.name ? 1 : -1));
+      languages.native_languages.sort((a, b) => (a.name > b.name ? 1 : -1));
       setSystemLanguages(languages);
       inviteCodeInputDOM.current.focus();
     });
@@ -78,7 +78,7 @@ export default function CreateAccount({ api, signInAndRedirect }) {
       },
       (error) => {
         setErrorMessage(error);
-      }
+      },
     );
   }
 

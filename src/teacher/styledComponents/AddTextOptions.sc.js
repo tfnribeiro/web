@@ -7,7 +7,7 @@ export const StyledAddTextOptions = styled.div`
   }
 
   .description {
-    margin-top:1em;
+    margin-top: 1em;
     height: 2.6em;
 
     :hover {

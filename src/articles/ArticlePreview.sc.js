@@ -94,7 +94,6 @@ let Topics = styled.span`
   }
 `;
 
-
 export {
   Title,
   Difficulty,

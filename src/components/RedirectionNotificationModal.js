@@ -22,7 +22,7 @@ export default function RedirectionNotificationModal({
 
   function toggleRedirectionCheckboxSelection() {
     setSelectedDoNotShowRedirectionModal_Checkbox(
-      !selectedDoNotShowRedirectionModal_Checkbox
+      !selectedDoNotShowRedirectionModal_Checkbox,
     );
   }
 

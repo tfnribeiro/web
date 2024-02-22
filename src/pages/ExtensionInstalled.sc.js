@@ -18,7 +18,7 @@ const ExtensionInstalledWrapper = styled.div`
     font-size: 1.3em;
     font-weight: 400;
   }
-  h4{
+  h4 {
     font-size: 1.5em;
     margin-block-start: 0.3em;
     margin-block-end: 0.3em;
@@ -68,7 +68,7 @@ let PageBackground = styled.div`
 let VideoLink = styled.p`
   margin: 0em;
   padding-bottom: 1em;
-`
+`;
 
 export {
   ExtensionInstalledWrapper,
@@ -76,5 +76,5 @@ export {
   LinkContainer,
   OrangeButton,
   PageBackground,
-  VideoLink
+  VideoLink,
 };

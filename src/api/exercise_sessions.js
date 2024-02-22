@@ -7,7 +7,7 @@ Zeeguu_API.prototype.startLoggingExerciseSessionToDB = function (callback) {
 
 Zeeguu_API.prototype.updateExerciseSession = function (
   currentSessionId,
-  currentDuration
+  currentDuration,
 ) {
   let payload = {
     id: currentSessionId,
@@ -19,7 +19,7 @@ Zeeguu_API.prototype.updateExerciseSession = function (
 
 Zeeguu_API.prototype.reportExerciseSessionEnd = function (
   exerciseSessionId,
-  totalTime
+  totalTime,
 ) {
   let payload = {
     id: exerciseSessionId,

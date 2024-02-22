@@ -1,7 +1,7 @@
 import { useState } from "react";
 import LoadingAnimation from "../components/LoadingAnimation";
 import { setTitle } from "../assorted/setTitle";
-import strings from "../i18n/definitions"
+import strings from "../i18n/definitions";
 
 import ArticlePreview from "./ArticlePreview";
 

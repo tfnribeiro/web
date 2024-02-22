@@ -35,7 +35,7 @@ const ShareWithCollegueDialog = ({ api, articleID, setShowDialog }) => {
       (error) => {
         setErrorMsg(strings.theConnectionFailed);
         console.log(error);
-      }
+      },
     );
   }
 

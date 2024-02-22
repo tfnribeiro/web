@@ -34,6 +34,5 @@ export const StyledTeacherTextPreview = styled.div`
   .added-to {
     color: ${darkBlue};
     border: solid 3px ${darkBlue};
-   
   }
 `;

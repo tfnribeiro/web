@@ -10,10 +10,10 @@ import {
 } from "../components/ColumnWidth.sc";
 import { setTitle } from "../assorted/setTitle";
 import strings from "../i18n/definitions";
-import { StyledButton } from "../components/allButtons.sc.js"
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
-import Tooltip from '@mui/material/Tooltip';
+import { StyledButton } from "../components/allButtons.sc.js";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import Tooltip from "@mui/material/Tooltip";
 
 function fit_for_study(words) {
   return words.filter((b) => b.fit_for_study || b.starred).length > 0;
@@ -21,7 +21,7 @@ function fit_for_study(words) {
 
 export default function WordsForArticle({ api }) {
   let { articleID } = useParams();
-  const history = useHistory(); 
+  const history = useHistory();
   const [words, setWords] = useState(null);
   const [articleInfo, setArticleInfo] = useState(null);
   const [exercisesEnabled, setExercisesEnabled] = useState(false);
@@ -60,27 +60,30 @@ export default function WordsForArticle({ api }) {
   };
 
   const toExercises = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     console.log("toExercises called");
     try {
-        console.log("Logging activity...");
-        await logGoingToExercisesAfterReview(e);
-        console.log("Activity logged, navigating to:", `../words/forArticle/${articleID}`);
-        history.push(`../../exercises/forArticle/${articleID}`);
+      console.log("Logging activity...");
+      await logGoingToExercisesAfterReview(e);
+      console.log(
+        "Activity logged, navigating to:",
+        `../words/forArticle/${articleID}`,
+      );
+      history.push(`../../exercises/forArticle/${articleID}`);
     } catch (error) {
-        console.error('Error during logging and navigation:', error);
+      console.error("Error during logging and navigation:", error);
     }
-};
+  };
 
-function logGoingToExercisesAfterReview(e) {
+  function logGoingToExercisesAfterReview(e) {
     console.log("logGoingToExercisesAfterReview called");
     return api.logReaderActivity(
-        api.TO_EXERCISES_AFTER_REVIEW,
-        articleID,
-        "",
-        UMR_SOURCE
+      api.TO_EXERCISES_AFTER_REVIEW,
+      articleID,
+      "",
+      UMR_SOURCE,
     );
-}
+  }
 
   return (
     <NarrowColumn>
@@ -94,19 +97,25 @@ function logGoingToExercisesAfterReview(e) {
       />
       <CenteredContent>
         <StyledButton secondary onClick={backToArticle}>
-          {<NavigateBeforeIcon/>}{strings.backToArticle}
+          {<NavigateBeforeIcon />}
+          {strings.backToArticle}
         </StyledButton>
-          {!exercisesEnabled ? (
-          <Tooltip title="Translate or star words in the article before accessing exercises." arrow>
+        {!exercisesEnabled ? (
+          <Tooltip
+            title="Translate or star words in the article before accessing exercises."
+            arrow
+          >
             <span>
-            <StyledButton disabled>
-              {strings.toExercises} {<NavigateNextIcon/>}
-            </StyledButton>
+              <StyledButton disabled>
+                {strings.toExercises} {<NavigateNextIcon />}
+              </StyledButton>
             </span>
           </Tooltip>
-          ) : <StyledButton primary onClick={toExercises}>
-              {strings.toExercises} <NavigateNextIcon/>
-              </StyledButton>}
+        ) : (
+          <StyledButton primary onClick={toExercises}>
+            {strings.toExercises} <NavigateNextIcon />
+          </StyledButton>
+        )}
       </CenteredContent>
     </NarrowColumn>
   );

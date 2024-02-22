@@ -1,7 +1,7 @@
 import strings from "../i18n/definitions";
 
 export default function UiLanguageSelector({ languages, selected, onChange }) {
-  languages.sort((a, b) => (a.name > b.name) ? 1 : -1)
+  languages.sort((a, b) => (a.name > b.name ? 1 : -1));
 
   return (
     <select

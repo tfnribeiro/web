@@ -24,7 +24,7 @@ const PractisedWordsList = ({ api }) => {
       },
       (error) => {
         console.log(error);
-      }
+      },
     );
     //eslint-disable-next-line
   }, []);

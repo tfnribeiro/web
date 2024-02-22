@@ -21,7 +21,7 @@ export default function SortingButtons({
     currentSort,
     setCurrentSort,
     setOtherSort,
-    sortingFunction
+    sortingFunction,
   ) {
     if (currentSort === "ascending") {
       sortArticleList(sortingFunction);
@@ -49,7 +49,7 @@ export default function SortingButtons({
             wordCountSortState,
             setwordCountSortState,
             setCurrentSort,
-            (a, b) => b.metrics.word_count - a.metrics.word_count
+            (a, b) => b.metrics.word_count - a.metrics.word_count,
           )
         }
       >
@@ -64,7 +64,7 @@ export default function SortingButtons({
             difficultySortState,
             setCurrentSort,
             setwordCountSortState,
-            (a, b) => b.metrics.difficulty - a.metrics.difficulty
+            (a, b) => b.metrics.difficulty - a.metrics.difficulty,
           )
         }
       >

@@ -28,7 +28,7 @@ export default function StudentInfoLine({
       selectedTimePeriod,
       cohortID,
       (studentActivityData) => setActivity(studentActivityData),
-      (error) => console.log(error)
+      (error) => console.log(error),
     );
     // eslint-disable-next-line
   }, [selectedTimePeriod]);

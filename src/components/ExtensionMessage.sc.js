@@ -28,11 +28,4 @@ const InstallLink = styled.div`
   align-items: flex-start;
 `;
 
-export {
-  ModalWrapper,
-  CloseButton,
-  Header,
-  Body,
-  Footer,
-  InstallLink,
-};
+export { ModalWrapper, CloseButton, Header, Body, Footer, InstallLink };

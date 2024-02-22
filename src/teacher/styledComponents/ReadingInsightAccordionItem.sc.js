@@ -75,7 +75,9 @@ export const ReadingInsightAccordionItem = styled.div`
 
   .panel {
     margin: 2vh auto 7vh auto;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+    box-shadow:
+      0 4px 8px 0 rgba(0, 0, 0, 0.12),
+      0 2px 4px 0 rgba(0, 0, 0, 0.08);
     border-radius: 10px;
     padding: 1em;
     width: 70vw;

@@ -17,7 +17,7 @@ function checkExtensionInstalled(setHasExtension) {
           } else {
             setHasExtension(false);
           }
-        }
+        },
       );
     } else {
       setHasExtension(false);

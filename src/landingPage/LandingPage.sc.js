@@ -1,5 +1,8 @@
 import styled, { keyframes, css } from "styled-components";
-import {zeeguuOrange, zeeguuTransparentLightYellow} from "../components/colors";
+import {
+  zeeguuOrange,
+  zeeguuTransparentLightYellow,
+} from "../components/colors";
 
 const LoginHeader = styled.div`
   width: 100%;
@@ -156,7 +159,6 @@ const InverseButton = styled.button`
     color: ${zeeguuOrange};
   }
 `;
-
 
 export {
   LoginHeader,

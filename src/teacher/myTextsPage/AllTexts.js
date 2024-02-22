@@ -4,7 +4,10 @@ import TeacherTextPreview from "./TeacherTextPreview";
 import LoadingAnimation from "../../components/LoadingAnimation";
 import { setTitle } from "../../assorted/setTitle";
 import strings from "../../i18n/definitions";
-import { StyledButton, TopButtonWrapper } from "../styledComponents/TeacherButtons.sc";
+import {
+  StyledButton,
+  TopButtonWrapper,
+} from "../styledComponents/TeacherButtons.sc";
 import * as s from "../../components/ColumnWidth.sc";
 import * as sc from "../../components/TopTabs.sc";
 import * as m from "../styledComponents/AllTexts.sc";

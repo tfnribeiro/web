@@ -3,7 +3,10 @@ import strings from "../../i18n/definitions";
 import { useParams } from "react-router";
 import SelectButton from "../sharedComponents/SelectButton";
 import { StyledDialog } from "../styledComponents/StyledDialog.sc";
-import { PopupButtonWrapper, StyledButton } from "../styledComponents/TeacherButtons.sc";
+import {
+  PopupButtonWrapper,
+  StyledButton,
+} from "../styledComponents/TeacherButtons.sc";
 
 export default function AddToCohortDialog({ api, setIsOpen }) {
   const [cohortsToChoose, setCohortsToChoose] = useState([]);
@@ -42,7 +45,7 @@ export default function AddToCohortDialog({ api, setIsOpen }) {
     //taking a cohort off the list
     if (chosenCohorts.includes(cohort_name)) {
       const temp = chosenCohorts.filter(
-        (chosenCohort) => chosenCohort !== cohort_name
+        (chosenCohort) => chosenCohort !== cohort_name,
       );
       setChosenCohorts(temp);
     }
@@ -57,7 +60,7 @@ export default function AddToCohortDialog({ api, setIsOpen }) {
       },
       () => {
         console.log("Connection to server failed...");
-      }
+      },
     );
   };
 
@@ -70,7 +73,7 @@ export default function AddToCohortDialog({ api, setIsOpen }) {
       },
       () => {
         console.log("Connection to server failed...");
-      }
+      },
     );
   };
 

@@ -3,7 +3,10 @@ import { Switch, useParams } from "react-router";
 import { Link, useLocation } from "react-router-dom";
 import { PrivateRoute } from "../../PrivateRoute";
 import LocalStorage from "../../assorted/LocalStorage";
-import { StyledButton, TopButtonWrapper } from "../styledComponents/TeacherButtons.sc";
+import {
+  StyledButton,
+  TopButtonWrapper,
+} from "../styledComponents/TeacherButtons.sc";
 import * as s from "../../components/ColumnWidth.sc";
 import * as sc from "../../components/TopTabs.sc";
 import StudentReadingInsights from "../myClassesPage/readingPage/StudentReadingInsights";
@@ -34,7 +37,7 @@ export default function ActivityInsightsRouter({ api }) {
       cohortID,
       selectedTimePeriod,
       (studentInfo) => setStudentName(trimName(studentInfo.name)),
-      (error) => console.log(error)
+      (error) => console.log(error),
     );
     //eslint-disable-next-line
   }, []);

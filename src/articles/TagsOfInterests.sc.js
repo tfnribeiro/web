@@ -213,12 +213,16 @@ const TagsOfInterests = styled.div`
     overflow: hidden;
     padding: 0 10px;
     max-height: 0;
-    transition: padding 0.15s, max-height 0.15s;
+    transition:
+      padding 0.15s,
+      max-height 0.15s;
   }
   .sweet-alert .sa-error-container.show {
     padding: 10px 0;
     max-height: 100px;
-    transition: padding 0.25s, max-height 0.25s;
+    transition:
+      padding 0.25s,
+      max-height 0.25s;
   }
   .sweet-alert .sa-error-container .icon {
     display: inline-block;
@@ -366,7 +370,9 @@ const TagsOfInterests = styled.div`
     background-color: ${lightGrey};
   }
   .sweet-alert button.cancel:focus {
-    box-shadow: ${lightGrey} 0px 0px 2px, white 0px 0px 0px 1px inset !important;
+    box-shadow:
+      ${lightGrey} 0px 0px 2px,
+      white 0px 0px 0px 1px inset !important;
   }
   .sweet-alert button[disabled] {
     opacity: 0.6;

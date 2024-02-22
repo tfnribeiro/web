@@ -60,7 +60,7 @@ Zeeguu_API.prototype.logUserActivity = function (
   event,
   article_id = "",
   value = "",
-  extra_data = ""
+  extra_data = "",
 ) {
   let event_information = {
     time: new Date().toJSON(),
@@ -79,7 +79,7 @@ Zeeguu_API.prototype.logUserActivity = function (
 
   return this._post(
     `upload_user_activity_data`,
-    qs.stringify(event_information)
+    qs.stringify(event_information),
   );
 };
 
@@ -89,7 +89,7 @@ Zeeguu_API.prototype.logReaderActivity = function (
   event,
   article_id = "",
   value = "",
-  extra_data = ""
+  extra_data = "",
 ) {
   return this.logUserActivity(event, article_id, value, extra_data);
 };

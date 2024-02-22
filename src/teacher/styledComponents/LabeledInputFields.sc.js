@@ -10,8 +10,8 @@ export const LabeledInputFields = styled.div`
   input {
     margin-left: 0.7em;
   }
-  
-  textarea{
+
+  textarea {
     margin-left: 0.7em;
   }
 

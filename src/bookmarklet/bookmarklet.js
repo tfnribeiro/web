@@ -30,5 +30,5 @@ post_to_url(
     url: location.href,
     page_content: document.documentElement.innerHTML,
   },
-  "post"
+  "post",
 );

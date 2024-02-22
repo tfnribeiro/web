@@ -142,10 +142,10 @@ const LocalStorage = {
 
   checkAndUpdateAudioExperimentCompleted: function () {
     let noOfSessions = Number(
-      localStorage[this.Keys.AudioExperimentNoOfSessions]
+      localStorage[this.Keys.AudioExperimentNoOfSessions],
     );
     let targetNoOfAudioSessions = Number(
-      localStorage[this.Keys.TargetNoOfAudioSessions]
+      localStorage[this.Keys.TargetNoOfAudioSessions],
     );
     if (noOfSessions >= targetNoOfAudioSessions) {
       this.setAudioExperimentCompleted(true);
@@ -162,7 +162,7 @@ const LocalStorage = {
   },
 
   setDisplayedAudioExperimentQuestionnaire: function (
-    displayedAudioExperimentQuestionnaire
+    displayedAudioExperimentQuestionnaire,
   ) {
     localStorage[this.Keys.DisplayedAudioExperimentQuestionnaire] =
       displayedAudioExperimentQuestionnaire;
@@ -171,7 +171,7 @@ const LocalStorage = {
   getTargetNoOfAudioSessions: function () {
     try {
       let noofsessions = Number(
-        localStorage[this.Keys.TargetNoOfAudioSessions]
+        localStorage[this.Keys.TargetNoOfAudioSessions],
       );
       return noofsessions;
     } catch (e) {
@@ -185,7 +185,7 @@ const LocalStorage = {
 
   getAudioExperimentNoOfSessions: function () {
     let noofsessions = Number(
-      localStorage[this.Keys.AudioExperimentNoOfSessions]
+      localStorage[this.Keys.AudioExperimentNoOfSessions],
     );
     return noofsessions;
   },
@@ -197,7 +197,7 @@ const LocalStorage = {
 
   incrementAudioExperimentNoOfSessions: function () {
     var audioExperimentNoOfSessions = Number(
-      localStorage[this.Keys.AudioExperimentNoOfSessions]
+      localStorage[this.Keys.AudioExperimentNoOfSessions],
     );
     var temp = audioExperimentNoOfSessions + 1;
     localStorage[this.Keys.AudioExperimentNoOfSessions] = temp;

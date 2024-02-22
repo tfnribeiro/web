@@ -7,10 +7,10 @@ Zeeguu_API.prototype.getOneTranslation = function (
   context,
   articleUrl,
   articleTitle,
-  articleID
+  articleID,
 ) {
   let url = this._appendSessionToUrl(
-    `get_one_translation/${from_lang}/${to_lang}`
+    `get_one_translation/${from_lang}/${to_lang}`,
   );
 
   return fetch(url, {
@@ -29,10 +29,10 @@ Zeeguu_API.prototype.getMultipleTranslations = function (
   numberOfResults,
   serviceToExclude,
   translationToExclude,
-  articleID
+  articleID,
 ) {
   let url = this._appendSessionToUrl(
-    `get_multiple_translations/${from_lang}/${to_lang}`
+    `get_multiple_translations/${from_lang}/${to_lang}`,
   );
 
   let body = `word=${word}&context=${context}&url=${pageUrl}&numberOfResults=${numberOfResults}&articleID=${articleID}`;
@@ -59,10 +59,10 @@ Zeeguu_API.prototype.contributeTranslation = function (
   translation,
   context,
   pageUrl,
-  pageTitle
+  pageTitle,
 ) {
   let url = this._appendSessionToUrl(
-    `contribute_translation/${from_lang}/${to_lang}`
+    `contribute_translation/${from_lang}/${to_lang}`,
   );
 
   let body = `word=${word}&translation=${translation}&context=${context}&url=${pageUrl}&pageTitle=${pageTitle}`;
@@ -78,7 +78,7 @@ Zeeguu_API.prototype.updateBookmark = function (
   bookmark_id,
   word,
   translation,
-  context
+  context,
 ) {
   let url = this._appendSessionToUrl(`update_bookmark/${bookmark_id}`);
 

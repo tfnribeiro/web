@@ -16,7 +16,7 @@ Zeeguu_API.prototype.getStudentInfo = function (
   cohortID,
   duration,
   onSuccess,
-  onError
+  onError,
 ) {
   let payload = {
     student_id: studentID,
@@ -31,7 +31,7 @@ Zeeguu_API.prototype.getReadingSessions = function (
   cohortID,
   duration,
   onSuccess,
-  onError
+  onError,
 ) {
   let payload = {
     student_id: studentID,
@@ -43,7 +43,7 @@ Zeeguu_API.prototype.getReadingSessions = function (
     qs.stringify(payload),
     onSuccess,
     onError,
-    true
+    true,
   );
 };
 
@@ -52,7 +52,7 @@ Zeeguu_API.prototype.getExerciseHistory = function (
   duration,
   cohortID,
   onSuccess,
-  onError
+  onError,
 ) {
   let payload = {
     student_id: studentID,
@@ -64,7 +64,7 @@ Zeeguu_API.prototype.getExerciseHistory = function (
     qs.stringify(payload),
     onSuccess,
     onError,
-    true
+    true,
   );
 };
 
@@ -73,7 +73,7 @@ Zeeguu_API.prototype.getLearnedWords = function (
   duration,
   cohortID,
   onSuccess,
-  onError
+  onError,
 ) {
   let payload = {
     student_id: studentID,
@@ -85,7 +85,7 @@ Zeeguu_API.prototype.getLearnedWords = function (
     qs.stringify(payload),
     onSuccess,
     onError,
-    true
+    true,
   );
 };
 
@@ -94,7 +94,7 @@ Zeeguu_API.prototype.getNonStudiedWords = function (
   duration,
   cohortID,
   onSuccess,
-  onError
+  onError,
 ) {
   let payload = {
     student_id: studentID,
@@ -106,7 +106,7 @@ Zeeguu_API.prototype.getNonStudiedWords = function (
     qs.stringify(payload),
     onSuccess,
     onError,
-    true
+    true,
   );
 };
 
@@ -115,7 +115,7 @@ Zeeguu_API.prototype.getStudentActivityOverview = function (
   duration,
   cohortID,
   onSuccess,
-  onError
+  onError,
 ) {
   let payload = {
     student_id: studentID,
@@ -127,6 +127,6 @@ Zeeguu_API.prototype.getStudentActivityOverview = function (
     qs.stringify(payload),
     onSuccess,
     onError,
-    true
+    true,
   );
 };

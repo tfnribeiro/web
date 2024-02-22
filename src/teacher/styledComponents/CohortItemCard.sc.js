@@ -12,7 +12,9 @@ export const StyledCohortItemCard = styled.div`
   }
 
   .cohort-card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+    box-shadow:
+      0 4px 8px 0 rgba(0, 0, 0, 0.12),
+      0 2px 4px 0 rgba(0, 0, 0, 0.08);
     border-radius: 10px;
     text-align: left;
     display: flex;

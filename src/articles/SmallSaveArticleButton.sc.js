@@ -31,7 +31,6 @@ let SavedButton = styled.div`
   &:hover {
     color: ${zeeguuOrange};
   }
-
 `;
 
 export { SaveButton, SavedButton };

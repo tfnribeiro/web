@@ -10,9 +10,9 @@ let TopMessage = styled.div`
   border-radius: 0.1em;
   max-width: 80%;
   margin: 2em;
-  padding: .5em .5em;
+  padding: 0.5em 0.5em;
   font-size: large;
-  
+
   @media (min-width: 768px) {
     width: 36em;
   }

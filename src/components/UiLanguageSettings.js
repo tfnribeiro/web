@@ -12,7 +12,7 @@ export default function UiLanguageSettings({ uiLanguage, setUiLanguage }) {
       language = uiLanguages[1];
     }
     setUiLanguage(language);
-    // eslint-disable-next-line 
+    // eslint-disable-next-line
   }, []);
 
   function onChange(language) {
@@ -25,9 +25,7 @@ export default function UiLanguageSettings({ uiLanguage, setUiLanguage }) {
     <div>
       {uiLanguage &&
         uiLanguages.map((lang, index) => (
-          <s.Container 
-            key={index}
-            htmlFor={lang.name}>
+          <s.Container key={index} htmlFor={lang.name}>
             <s.Icon
               src={
                 uiLanguage.name === lang.name

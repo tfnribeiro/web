@@ -51,12 +51,12 @@
     "webpack-cli": "^4.9.2",
     "react-modal": "^3.14.4",
     "dompurify": "^2.3.5"
-
   },
   "scripts": {
     "start": "react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "prettify": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
     "build": "cross-env react-scripts build || npm run sentry:sourcemaps",
     "sentry:sourcemaps": "./node_modules/.bin/sentry-cli sourcemaps inject --org it-university-of-copenhagen --project zeeguu-web ./build && ./node_modules/.bin/sentry-cli sourcemaps upload --org it-university-of-copenhagen --project zeeguu-web ./build"
   },

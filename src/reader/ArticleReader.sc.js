@@ -48,7 +48,7 @@ let ArticleReader = styled.div`
   }
 
   hr {
-    border-top: 1px solid #F6F6F6;
+    border-top: 1px solid #f6f6f6;
   }
 `;
 
@@ -69,9 +69,9 @@ let RightHandSide = styled.div`
   float: right;
 `;
 let Toolbar = styled.div`
-    padding-top: 0.5rem;
-    height: 8em;
-    width: 100%;
+  padding-top: 0.5rem;
+  height: 8em;
+  width: 100%;
   // background-color: ${veryLightGrey};
 
   button {
@@ -152,24 +152,21 @@ let WhiteButton = styled(_BottomButton)`
   display: inline;
   align-items: center;
   justify-content: center;
-  border:none
-
-  //Small
-  ${(props) =>
-    props.small &&
-    css`
-      font-size: 10px;
-    `}
-
-  // Gray
-  ${(props) =>
-    props.small &&
-    css`
-      color: hsla(21, 15%, 60%, 1) !important;
-      border-color: hsla(21, 15%, 60%, 1);
-      border-width: 1px;
-      background-color: hsla(21, 15%, 99%, 1);
-    `}
+  border: none //Small
+    ${(props) =>
+      props.small &&
+      css`
+        font-size: 10px;
+      `}
+    // Gray
+    ${(props) =>
+      props.small &&
+      css`
+        color: hsla(21, 15%, 60%, 1) !important;
+        border-color: hsla(21, 15%, 60%, 1);
+        border-width: 1px;
+        background-color: hsla(21, 15%, 99%, 1);
+      `};
 `;
 
 let OrangeButton = styled(_BottomButton)`
@@ -237,9 +234,8 @@ let NavigationLink = styled(Link)`
     `}
 `;
 
-
 let FeedbackBox = styled.div`
-  border: 1px solid  ${lighterBlue};
+  border: 1px solid ${lighterBlue};
   background-color: white;
   border-radius: 0.5em;
   display: flex;
@@ -255,7 +251,10 @@ let FeedbackBox = styled.div`
   margin-left: auto;
   margin-right: auto;
 
-  h2, h3, h5,  p {
+  h2,
+  h3,
+  h5,
+  p {
     text-align: center;
   }
   .selected {

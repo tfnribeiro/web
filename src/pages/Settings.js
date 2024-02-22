@@ -57,7 +57,7 @@ export default function Settings({ api, setUser }) {
       },
       () => {
         console.log("Connection to server failed...");
-      }
+      },
     );
   };
 
@@ -67,15 +67,18 @@ export default function Settings({ api, setUser }) {
       setCEFRlevel(data);
     });
     api.getUserPreferences((preferences) => {
-        setAudioExercises(preferences["audio_exercises"] === undefined || preferences["audio_exercises"] === "true");
-    })
+      setAudioExercises(
+        preferences["audio_exercises"] === undefined ||
+          preferences["audio_exercises"] === "true",
+      );
+    });
     api.getSystemLanguages((systemLanguages) => {
       setLanguages(systemLanguages);
     });
     api.getStudent((student) => {
       if (student.cohort_id !== null) {
         api.getCohortName(student.cohort_id, (cohort) =>
-          setCurrentCohort(cohort.name)
+          setCurrentCohort(cohort.name),
         );
       }
     });
@@ -112,16 +115,14 @@ export default function Settings({ api, setUser }) {
     modifyCEFRlevel(userDetails.learned_language, cefr);
 
     api.saveUserDetails(userDetails, setErrorMessage, () => {
-      api.saveUserPreferences({"audio_exercises": audioExercises}, () => {
+      api.saveUserPreferences({ audio_exercises: audioExercises }, () => {
         updateUserInfo(userDetails);
-        if (history.length>1) {
+        if (history.length > 1) {
           history.goBack();
         } else {
           window.close();
         }
-
-
-      })
+      });
     });
   }
 
@@ -140,12 +141,12 @@ export default function Settings({ api, setUser }) {
       },
       (error) => {
         console.log(error);
-      }
+      },
     );
   }
 
   function handleAudioExercisesChange(e) {
-    setAudioExercises(state => !state);
+    setAudioExercises((state) => !state);
   }
 
   if (!userDetails || !languages) {
@@ -183,21 +184,22 @@ export default function Settings({ api, setUser }) {
 
           <label>{strings.nativeLanguage}</label>
           <UiLanguageSelector
-              languages={languages.native_languages}
-              selected={language_for_id(
-                  userDetails.native_language,
-                  languages.native_languages
-              )}
-              onChange={nativeLanguageUpdated}
+            languages={languages.native_languages}
+            selected={language_for_id(
+              userDetails.native_language,
+              languages.native_languages,
+            )}
+            onChange={nativeLanguageUpdated}
           />
 
-          <br/><br/>
+          <br />
+          <br />
           <label>{strings.learnedLanguage}</label>
           <UiLanguageSelector
             languages={languages.learnable_languages}
             selected={language_for_id(
               userDetails.learned_language,
-              languages.learnable_languages
+              languages.learnable_languages,
             )}
             onChange={(e) => {
               let code = e.target[e.target.selectedIndex].getAttribute("code");
@@ -217,8 +219,6 @@ export default function Settings({ api, setUser }) {
             current={cefr}
           />
 
-
-
           {/*<label>{strings.systemLanguage}</label>*/}
           {/*<UiLanguageSelector*/}
           {/*  languages={uiLanguages}*/}
@@ -233,14 +233,19 @@ export default function Settings({ api, setUser }) {
           {/*  }}*/}
           {/*/>*/}
 
-          <br/><br/>
+          <br />
+          <br />
 
           <label>Exercise Types</label>
-          <div style={{display: "flex"}} className="form-group">
-            <input style={{width: "1.5em"}} type={"checkbox"} checked={audioExercises} onChange={handleAudioExercisesChange}/>
+          <div style={{ display: "flex" }} className="form-group">
+            <input
+              style={{ width: "1.5em" }}
+              type={"checkbox"}
+              checked={audioExercises}
+              onChange={handleAudioExercisesChange}
+            />
             <label>Audio</label>
           </div>
-
 
           <div>
             <s.FormButton onClick={handleSave}>{strings.save}</s.FormButton>
@@ -280,7 +285,12 @@ export default function Settings({ api, setUser }) {
           </div>
         )}
       </scs.StyledSettings>
-      <br/><br/><br/><br/><br/><br/>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </s.FormContainer>
   );
 }

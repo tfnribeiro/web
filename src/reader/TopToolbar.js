@@ -51,7 +51,7 @@ export default function TopToolbar({
         article.language,
         (newID) => {
           history.push(`/teacher/texts/editText/${newID}`);
-        }
+        },
       );
     });
   };
@@ -63,7 +63,6 @@ export default function TopToolbar({
 
   return (
     <PopupButtonWrapper>
-
       <s.Toolbar>
         {user.is_teacher && (
           <>
@@ -93,12 +92,12 @@ export default function TopToolbar({
           </s.PlayerControl>
         )}
         <s.RightHandSide>
-        <ToolbarButtons
-                  translating={translating}
-                  pronouncing={pronouncing}
-                  setTranslating={setTranslating}
-                  setPronouncing={setPronouncing}
-                />
+          <ToolbarButtons
+            translating={translating}
+            pronouncing={pronouncing}
+            setTranslating={setTranslating}
+            setPronouncing={setPronouncing}
+          />
         </s.RightHandSide>
       </s.Toolbar>
     </PopupButtonWrapper>

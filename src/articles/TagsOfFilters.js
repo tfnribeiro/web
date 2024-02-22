@@ -38,7 +38,7 @@ export default function TagsOfFilters({
 
   function unsubscribeFromFilter(filter) {
     setSubscribedFilters(
-      subscribedFilters.filter((each) => each.id !== filter.id)
+      subscribedFilters.filter((each) => each.id !== filter.id),
     );
     api.unsubscribeFromFilter(filter);
   }
@@ -46,7 +46,7 @@ export default function TagsOfFilters({
   function removeSearchFilter(search) {
     api.unsubscribeFromSearchFilter(search);
     setSubscribedSearchFilters(
-      subscribedSearchFilters.filter((each) => each.id !== search.id)
+      subscribedSearchFilters.filter((each) => each.id !== search.id),
     );
   }
 

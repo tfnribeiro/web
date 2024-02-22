@@ -32,7 +32,7 @@ export default function InterestsAndSearch({ api, articlesListShouldChange }) {
   return (
     <s.Interests>
       <b.OrangeRoundButton onClick={(e) => toggleInterests()}>
-      {strings.interests}
+        {strings.interests}
       </b.OrangeRoundButton>
 
       <b.OrangeRoundButton onClick={(e) => toggleFilters()}>

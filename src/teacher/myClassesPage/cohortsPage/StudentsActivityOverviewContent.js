@@ -9,7 +9,7 @@ const StudentsActivityOverviewContent = ({
   cohortID,
   students,
   setForceUpdate,
-  removeStudentFromCohort
+  removeStudentFromCohort,
 }) => {
   const [firstStudent, setFirstStudent] = useState(null);
   const [restOfStudents, setRestOfStudents] = useState(null);

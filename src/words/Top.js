@@ -26,7 +26,7 @@ export default function Top({ api }) {
       <s.TopMessage>{strings.rankedMsg}</s.TopMessage>
 
       {words.map((each) => (
-        <Word key={each.id} bookmark={each} api={api} source={UMR_SOURCE}/>
+        <Word key={each.id} bookmark={each} api={api} source={UMR_SOURCE} />
       ))}
     </>
   );

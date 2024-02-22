@@ -19,7 +19,7 @@ export default function ArticleOverview({
 }) {
   const [isRedirectionModalOpen, setIsRedirectionModaOpen] = useState(false);
   const [isArticleSaved, setIsArticleSaved] = useState(
-    article.has_personal_copy
+    article.has_personal_copy,
   );
 
   let topics = article.topics.split(" ").filter((each) => each !== "");

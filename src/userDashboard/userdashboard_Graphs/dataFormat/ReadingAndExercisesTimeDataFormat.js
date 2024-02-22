@@ -78,7 +78,7 @@ function getDataForInterval(
   startDate,
   endDate,
   dateFormatString,
-  activeTimeFormatOption
+  activeTimeFormatOption,
 ) {
   var result = [];
 
@@ -96,7 +96,7 @@ function getDataForInterval(
       : 0;
 
     var exercisesCount = exercisesData.find(
-      (entry) => entry.date === stringDate
+      (entry) => entry.date === stringDate,
     )
       ? exercisesData.find((entry) => entry.date === stringDate).seconds
       : 0;
@@ -124,7 +124,7 @@ function getBarDataForWeek(data, dateInWeek, activeTimeFormatOption) {
     datesCurrentWeek.start,
     datesCurrentWeek.end,
     STRING_FORMAT,
-    activeTimeFormatOption
+    activeTimeFormatOption,
   );
 }
 
@@ -141,7 +141,7 @@ function getBarDataForMonth(data, dateInMonth, activeTimeFormatOption) {
     datesCurrentMonth.start,
     datesCurrentMonth.end,
     STRING_FORMAT,
-    activeTimeFormatOption
+    activeTimeFormatOption,
   );
 }
 
@@ -327,7 +327,7 @@ function getBarGraphData(
   countPerMonths,
   period,
   dateInPeriod,
-  activeTimeFormatOption
+  activeTimeFormatOption,
 ) {
   switch (period) {
     case PERIOD_OPTIONS.WEEK:
@@ -338,13 +338,13 @@ function getBarGraphData(
       return getBarDataForYear(
         countPerMonths,
         dateInPeriod,
-        activeTimeFormatOption
+        activeTimeFormatOption,
       );
     case PERIOD_OPTIONS.YEARS:
       return getBarDataForYears(
         countPerMonths,
         dateInPeriod,
-        activeTimeFormatOption
+        activeTimeFormatOption,
       );
     default:
       return getBarDataForWeek(data, new Date(), activeTimeFormatOption);

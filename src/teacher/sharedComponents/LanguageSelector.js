@@ -7,7 +7,7 @@ export function LanguageSelector(props) {
   const [languages, setLanguages] = useState([]);
   useEffect(() => {
     props.api.getSystemLanguages((languages) =>
-      setLanguages(languages.learnable_languages)
+      setLanguages(languages.learnable_languages),
     );
     //eslint-disable-next-line
   }, []);

@@ -4,7 +4,7 @@ export default function BookmarkButton({ bookmarked, toggleBookmarkedState }) {
   let fileName = (bookmarked ? "bookmarked" : "not-bookmarked") + ".svg";
   let actionDescription =
     //(bookmarked ? "Remove from" : "Add to") + " bookmarks";
-    (bookmarked ? strings.removeFromBookmarks : strings.addToBookmarks)
+    bookmarked ? strings.removeFromBookmarks : strings.addToBookmarks;
 
   return (
     <>

@@ -17,17 +17,17 @@ const ViewMoreLessButton = ({ sessionID, openedArticle, isFirst }) => {
 
   return (
     <s.ViewMoreLessButton isFirst={isFirst}>
-        {!showLessButton ? (
-          <div className="wrapper">
-            <p>{strings.viewMoreBtn}</p>
-            <MdExpandMore className="expansionIcon" />
-          </div>
-        ) : (
-          <div className="wrapper">
-            <p className="viewLess">{strings.viewLessBtn}</p>
-            <MdExpandLess className="expansionIcon" />
-          </div>
-        )}
+      {!showLessButton ? (
+        <div className="wrapper">
+          <p>{strings.viewMoreBtn}</p>
+          <MdExpandMore className="expansionIcon" />
+        </div>
+      ) : (
+        <div className="wrapper">
+          <p className="viewLess">{strings.viewLessBtn}</p>
+          <MdExpandLess className="expansionIcon" />
+        </div>
+      )}
     </s.ViewMoreLessButton>
   );
 };

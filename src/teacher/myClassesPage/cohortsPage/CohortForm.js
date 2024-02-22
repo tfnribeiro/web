@@ -105,14 +105,14 @@ const CohortForm = ({
 
   const invalidClassName = () => {
     const invalid = cohorts.filter(
-      (cohort) => cohort.name === state.cohort_name
+      (cohort) => cohort.name === state.cohort_name,
     );
     return invalid.length > 0;
   };
 
   const invalidInviteCode = () => {
     const invalid = cohorts.filter(
-      (cohort) => cohort.inv_code === state.invite_code
+      (cohort) => cohort.inv_code === state.invite_code,
     );
     return invalid.length > 0;
   };

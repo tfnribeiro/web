@@ -1,7 +1,7 @@
 import * as s from "../components/FormPage.sc";
 import { useState } from "react";
 import validator from "../assorted/validator";
-import strings from "../i18n/definitions"
+import strings from "../i18n/definitions";
 
 export default function ResetPasswordStep2({ api, email }) {
   const [errorMessage, setErrorMessage] = useState("");
@@ -32,7 +32,7 @@ export default function ResetPasswordStep2({ api, email }) {
       (e) => {
         console.log(e);
         setFailure(true);
-      }
+      },
     );
   }
 
@@ -41,7 +41,8 @@ export default function ResetPasswordStep2({ api, email }) {
       <>
         <h1>{strings.somethingWentWrong}</h1>
         <p>
-          {strings.youCanTryTo}<a href="/reset_pass">{strings.resetYourPassword}</a> {strings.again}
+          {strings.youCanTryTo}
+          <a href="/reset_pass">{strings.resetYourPassword}</a> {strings.again}
         </p>
 
         <p>
@@ -57,7 +58,8 @@ export default function ResetPasswordStep2({ api, email }) {
         <p>{strings.passwordChangedSuccessfullyMsg}</p>
         <br />
         <p>
-          {strings.youCanGoTo}<a href="signin">{strings.login}</a> {strings.now}
+          {strings.youCanGoTo}
+          <a href="signin">{strings.login}</a> {strings.now}
         </p>
       </>
     );

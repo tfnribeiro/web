@@ -14,8 +14,6 @@ const LoadingAnimation = styled.div`
     position: relative;
     width: 80px;
     height: 80px;
-    
-    
   }
   .lds-ellipsis div {
     position: absolute;
@@ -66,8 +64,6 @@ const LoadingAnimation = styled.div`
       transform: translate(24px, 0);
     }
   }
-
-
 `;
 
 export { LoadingAnimation };

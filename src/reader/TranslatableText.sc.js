@@ -131,7 +131,9 @@ green downwards pointing triangle; we used to mark also single alternatives
   .handContributed:after {
     display: hidden;
     opacity: 0.1;
-    transition: visibility 0s 2s, opacity 2s linear;
+    transition:
+      visibility 0s 2s,
+      opacity 2s linear;
   }
 
   .handSelected:after {

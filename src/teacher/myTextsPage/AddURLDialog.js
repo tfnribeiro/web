@@ -44,10 +44,10 @@ export default function AddURLDialog({ api, setShowAddURLDialog }) {
         (err) => {
           setShowError(true);
           console.log(
-            "An error occurred. It might be caused by an invalid URL: "
+            "An error occurred. It might be caused by an invalid URL: ",
           );
           console.log(err);
-        }
+        },
       );
     }
   };

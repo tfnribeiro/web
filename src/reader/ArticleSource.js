@@ -1,9 +1,9 @@
-import Chip from '@mui/material/Chip';
-import LinkIcon from '@mui/icons-material/Link';
+import Chip from "@mui/material/Chip";
+import LinkIcon from "@mui/icons-material/Link";
 
 export default function ArticleSource({ url }) {
   return (
-    <div style={{ marginLeft: '5px', marginRight: '5px' }}>
+    <div style={{ marginLeft: "5px", marginRight: "5px" }}>
       {url && (
         <Chip
           label="Source"

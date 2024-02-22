@@ -41,7 +41,6 @@ export const StyledExerciseDataItemCard = styled.div`
     margin-top: -0.5em;
     font-size: 45px;
     color: ${darkBlue};
-    
   }
 
   .view-less-box {

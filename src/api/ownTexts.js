@@ -20,7 +20,7 @@ Zeeguu_API.prototype.uploadOwnText = function (
   content,
   language,
   onSuccess,
-  onError
+  onError,
 ) {
   let payload = {
     title: title,
@@ -41,7 +41,7 @@ Zeeguu_API.prototype.updateOwnText = function (
   title,
   content,
   language,
-  onSuccess
+  onSuccess,
 ) {
   let payload = {
     title: title,
@@ -71,7 +71,7 @@ Zeeguu_API.prototype.shareTextWithColleague = function (
   articleID,
   receiverEmail,
   onSuccess,
-  onError
+  onError,
 ) {
   let payload = {
     article_id: articleID,
@@ -81,6 +81,6 @@ Zeeguu_API.prototype.shareTextWithColleague = function (
     `send_article_to_colleague`,
     qs.stringify(payload),
     onSuccess,
-    onError
+    onError,
   );
 };

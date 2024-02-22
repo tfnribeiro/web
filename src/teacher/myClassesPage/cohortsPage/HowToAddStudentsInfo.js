@@ -1,7 +1,10 @@
 import React from "react";
 import strings from "../../../i18n/definitions";
 import { StyledDialog } from "../../styledComponents/StyledDialog.sc";
-import { PopupButtonWrapper, StyledButton } from "../../styledComponents/TeacherButtons.sc";
+import {
+  PopupButtonWrapper,
+  StyledButton,
+} from "../../styledComponents/TeacherButtons.sc";
 
 const HowToAddStudentsInfo = ({ setShowAddStudentInfo, inviteCode }) => {
   return (

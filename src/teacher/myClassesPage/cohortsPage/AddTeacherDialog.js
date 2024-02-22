@@ -50,7 +50,7 @@ export default function AddTeacherDialog({
         (error) => {
           console.log(error);
           setShowError(true);
-        }
+        },
       );
     }
   };

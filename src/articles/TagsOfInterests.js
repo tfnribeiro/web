@@ -37,14 +37,14 @@ export default function TagsOfInterests({
   function subscribeToTopicOfInterest(topic) {
     setSubscribedTopics([...subscribedTopics, topic]);
     setInterestingTopics(
-      availableTopics.filter((each) => each.id !== topic.id)
+      availableTopics.filter((each) => each.id !== topic.id),
     );
     api.subscribeToTopic(topic);
   }
 
   function unsubscribeFromTopicOfInterest(topic) {
     setSubscribedTopics(
-      subscribedTopics.filter((each) => each.id !== topic.id)
+      subscribedTopics.filter((each) => each.id !== topic.id),
     );
     setInterestingTopics([...availableTopics, topic]);
     api.unsubscribeFromTopic(topic);
@@ -53,7 +53,7 @@ export default function TagsOfInterests({
   function removeSearch(search) {
     console.log("unsubscribing from search" + search);
     setSubscribedSearches(
-      subscribedSearches.filter((each) => each.id !== search.id)
+      subscribedSearches.filter((each) => each.id !== search.id),
     );
     api.unsubscribeFromSearch(search);
   }

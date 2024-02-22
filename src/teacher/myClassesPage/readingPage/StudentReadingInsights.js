@@ -27,26 +27,26 @@ export default function StudentReadingInsights({ api }) {
       cohortID,
       selectedTimePeriod,
       (studentInfo) => setStudentName(studentInfo.name),
-      (error) => console.log(error)
+      (error) => console.log(error),
     );
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    setArticleCount(null)
+    setArticleCount(null);
     api.getReadingSessions(
       studentID,
       cohortID,
       selectedTimePeriod,
       (readingSessions) => setReadArticles(readingSessions),
-      (error) => console.log(error)
+      (error) => console.log(error),
     );
     api.getStudentActivityOverview(
       studentID,
       selectedTimePeriod,
       cohortID,
       (activity) => setArticleCount(activity.number_of_texts),
-      (error) => console.log(error)
+      (error) => console.log(error),
     );
     // eslint-disable-next-line
   }, [forceUpdate]);
@@ -54,9 +54,9 @@ export default function StudentReadingInsights({ api }) {
   const customText =
     readArticles &&
     studentName +
-    strings.studentHasRead +
-    articleCount +
-    strings.textsInTheLastPeriod;
+      strings.studentHasRead +
+      articleCount +
+      strings.textsInTheLastPeriod;
 
   if (studentName === null || articleCount === null) {
     return <LoadingAnimation />;
